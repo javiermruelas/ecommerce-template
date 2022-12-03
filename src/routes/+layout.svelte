@@ -25,6 +25,7 @@
 			<ul>
 				<li><a href="/">Home</a></li>
 				<li><a href="/about">About</a></li>
+				<li><a href="/about">Products</a></li>
 			</ul>
 		</nav>
 	</svelte:fragment>
