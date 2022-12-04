@@ -65,6 +65,9 @@
 
     <!-- Page Content Slot -->
     <slot />
+
+	<!-- Footer -->
+	<svelte:fragment slot="footer">Footer</svelte:fragment>
 </AppShell>
 
 <style>
