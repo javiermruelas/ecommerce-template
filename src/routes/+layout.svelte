@@ -32,7 +32,6 @@
 			darkModeObserver.observe(htmlElement, {attributes: true, childList: false});
 		}
 	});
-	
 </script>
 
 <AppShell slotSidebarLeft="bg-surface-500/5 w-56 p-4">
