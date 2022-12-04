@@ -45,22 +45,21 @@
 					<h1 class="font-bold leading-loose">ecommerce</h1>
 				</div>
 			</svelte:fragment>
-			
-			<nav>
-				<ul class="flex justify-center">
-					<li><a href="/">Home</a></li>
-					<li><a href="/about">About</a></li>
-					<li><a href="/services">Services</a></li>
-					<li><a href="/products">Products</a></li>
-					<li><a href="/support">Support</a></li>
-				</ul>
-			</nav>
 
 			<svelte:fragment slot="trail">
+				<nav>
+					<ul class="flex justify-end">
+						<li><a href="/">Home</a></li>
+						<li><a href="/about">About</a></li>
+						<li><a href="/services">Services</a></li>
+						<li><a href="/products">Products</a></li>
+						<li><a href="/support">Support</a></li>
+					</ul>
+				</nav>
 				<Divider vertical={true} borderWidth="border-l" />
 				<LightSwitch />
 				<Divider vertical={true} borderWidth="border-l" />
-				<a class="btn btn-sm" href="https://github.com/javiermruelas/ecommerce-template" target="_blank" rel="noreferrer">GitHub</a>
+				<a class="btn bg-primary-500 btn-sm text-white" href="https://github.com/javiermruelas/ecommerce-template" target="_blank" rel="noreferrer">GitHub</a>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
