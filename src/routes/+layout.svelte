@@ -43,7 +43,7 @@
 			</svelte:fragment> -->
 
 			<div class="flex justify-start">
-				<img src={logoSource} height="10%" width="10%" alt="ecommerce template logo" class="mr-4" />
+				<img src={logoSource} height="15%" width="15%" alt="ecommerce template logo" class="mr-4" />
 				<h1 class="font-bold leading-loose">ecommerce</h1>
 			</div>
 
@@ -72,57 +72,54 @@
 	
 	<!-- Page Footer -->
 	<svelte:fragment slot="pageFooter">
-		<footer class="site-footer">
-			<div class="container">
-			  <div class="row">
-				<div class="col-sm-12 col-md-6">
-				  <h6>About</h6>
-				  <p class="text-justify">Making the world a better place by selling quality products.</p>
+		<footer class="bg-surface-100-800-token flex flex-col p-4">
+
+			<div class="grid grid-cols-4 gap-4">
+				<div class="col-span-2 flex flex-col justify-around content-center">
+					<img class="mx-auto" src={logoSource} height="10%" width="10%" alt="ecommerce template logo" />
+					<p class="text-center">Helping respectable and professional businesses establish a digital footprint in the ecommerce landscape.</p>
+					<div>
+						<ul class="flex justify-evenly content-center">
+							<li><a class="facebook" href="/"><i class="fa fa-facebook"></i></a></li>
+							<li><a class="twitter" href="/"><i class="fa fa-twitter"></i></a></li>
+							<li><a class="dribbble" href="/"><i class="fa fa-dribbble"></i></a></li>
+							<li><a class="linkedin" href="/"><i class="fa fa-linkedin"></i></a></li>   
+						</ul>
+					</div>
+				</div>
+
+				<div class="flex flex-col justify-start content-center pl-16">
+					<h6 class="text-left">Made With</h6>
+					<ul class="footer-ul text-left flex flex-col justify-center">
+						<li><a href="/">Svelte</a></li>
+						<li><a href="/">SvelteKit</a></li>
+						<li><a href="/">Skeleton</a></li>
+						<li><a href="/">Tailwind</a></li>
+						<li><a href="/">Stripe</a></li>
+						<li><a href="/">Supabase</a></li>
+					</ul>
 				</div>
 	  
-				<div class="col-xs-6 col-md-3">
-				  <h6>Made With</h6>
-				  <ul class="footer-links">
-					<li><a href="/">Svelte</a></li>
-					<li><a href="/">SvelteKit</a></li>
-					<li><a href="/">Skeleton</a></li>
-					<li><a href="/">Tailwind</a></li>
-					<li><a href="/">Stripe</a></li>
-					<li><a href="/">Supabase</a></li>
-				  </ul>
-				</div>
-	  
-				<div class="col-xs-6 col-md-3">
-				  <h6>Quick Links</h6>
-				  <ul class="footer-links">
+				<div class="flex flex-col justify-start content-center pl-16">
+				  <h6 class="text-left">Quick Links</h6>
+				  <ul class="footer-ul text-left flex flex-col justify-center">
 					<li><a href="/">About Us</a></li>
 					<li><a href="/">Contact Us</a></li>
-					<li><a href="/">Contribute</a></li>
 					<li><a href="/">Privacy Policy</a></li>
 					<li><a href="/">Sitemap</a></li>
 				  </ul>
 				</div>
-			  </div>
-			  <hr>
 			</div>
-			<div class="container">
-			  <div class="row">
-				<div class="col-md-8 col-sm-6 col-xs-12">
-				  <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by 
-			   <a href="#">Scanfcode</a>.
+
+			<div>
+				<hr class="mb-2 mt-2" />
+				<div class="flex justify-center content-center">
+				  <p class="">Copyright &copy; 2022 All Rights Reserved by 
+					<a href="https://linkedin.com/in/jruelas1996" target="_blank" rel="noreferrer">Javier Ruelas</a>.
 				  </p>
 				</div>
-	  
-				<div class="col-md-4 col-sm-6 col-xs-12">
-				  <ul class="social-icons">
-					<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-					<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-					<li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-					<li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
-				  </ul>
-				</div>
-			  </div>
 			</div>
+
 	  	</footer>
 	</svelte:fragment>
 </AppShell>
@@ -130,5 +127,8 @@
 <style>
 	nav ul li {
 		margin: 0 5px;
+	}
+	.footer-ul li {
+		margin: 0 0 5px 0;
 	}
 </style>
