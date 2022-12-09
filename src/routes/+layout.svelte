@@ -4,34 +4,35 @@
 	import '../app.postcss';
 
 	import { AppShell, AppBar, Divider, LightSwitch } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
+	import { loop_guard } from 'svelte/internal';
 
-	let logoSource:string = 'logo.svg';
+	// All of this code was used to switch the dark mode icon
+	// import { onMount } from 'svelte';
 
-	onMount(async () => {
-		// html receives 'dark' class to enable dark mode
-		// we may observe these events to keep our own state
-		let html = document.querySelector('html');
+	// let logoSource:string = 'logo.svg';
 
-		if (html != null) {
-			const htmlElement: HTMLElement = html;
-			const originalState = htmlElement.classList.contains('dark');
-			let previousState = originalState;
+	// onMount(async () => {
+	// 	let html = document.querySelector('html');
 
-			const darkModeObserver = new MutationObserver((mutations) => { 
-				mutations.forEach((mutation: any) => {
-					if (mutation.attributeName === 'class') {
-						const currentState = mutation.target.classList.contains('dark');
-						if (previousState !== currentState) {
-							logoSource = currentState ? 'logo_dark.svg' : 'logo.svg';
-							previousState = currentState;
-						}
-					}
-				});
-			});
-			darkModeObserver.observe(htmlElement, {attributes: true, childList: false});
-		}
-	});
+	// 	if (html != null) {
+	// 		const htmlElement: HTMLElement = html;
+	// 		const originalState = htmlElement.classList.contains('dark');
+	// 		let previousState = originalState;
+
+	// 		const darkModeObserver = new MutationObserver((mutations) => { 
+	// 			mutations.forEach((mutation: any) => {
+	// 				if (mutation.attributeName === 'class') {
+	// 					const currentState = mutation.target.classList.contains('dark');
+	// 					if (previousState !== currentState) {
+	// 						logoSource = currentState ? 'logo_dark.svg' : 'logo.svg';
+	// 						previousState = currentState;
+	// 					}
+	// 				}
+	// 			});
+	// 		});
+	// 		darkModeObserver.observe(htmlElement, {attributes: true, childList: false});
+	// 	}
+	// });
 </script>
 
 <AppShell>
@@ -43,7 +44,7 @@
 			</svelte:fragment> -->
 
 			<div class="flex justify-start">
-				<img src={logoSource} height="15%" width="15%" alt="ecommerce template logo" class="mr-4" />
+				<img src="logo.svg" height="15%" width="15%" alt="ecommerce template logo" class="mr-4" />
 				<h1 class="font-bold leading-loose">ecommerce</h1>
 			</div>
 
@@ -76,7 +77,7 @@
 
 			<div class="grid grid-cols-4 gap-4">
 				<div class="col-span-2 flex flex-col justify-around content-center">
-					<img class="mx-auto" src={logoSource} height="10%" width="10%" alt="ecommerce template logo" />
+					<img class="mx-auto" src="logo.svg" height="10%" width="10%" alt="ecommerce template logo" />
 					<p class="text-center">Helping respectable and professional businesses establish a digital footprint in the ecommerce landscape.</p>
 					<div>
 						<ul class="flex justify-evenly content-center">
