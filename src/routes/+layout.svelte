@@ -43,9 +43,9 @@
 				
 			</svelte:fragment> -->
 
-			<div class="flex justify-start">
+			<div class="flex justify-start items-center">
 				<img src="logo.svg" height="15%" width="15%" alt="ecommerce template logo" class="mr-4" />
-				<h1 class="font-bold leading-loose">ecommerce</h1>
+				<h1 class="font-bold">ecommerce</h1>
 			</div>
 
 			<svelte:fragment slot="trail">
