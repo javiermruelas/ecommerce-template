@@ -1,11 +1,11 @@
 <svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="shape">
-<g id="square_main" filter="url(#filter0_d_9_2)">
-<rect x="25" y="25" width="950" height="950" rx="15" fill="#F5F5F4" fill-opacity="0.5" shape-rendering="crispEdges"/>
+<g id="triangle_dark" filter="url(#filter0_d_9_2)">
+<path d="M472.226 70.1173C483.681 50.1205 512.548 50.1281 524.187 70.1309L886.444 692.719C898.083 712.721 883.764 737.717 860.67 737.711L141.869 737.523C118.775 737.517 104.226 712.513 115.682 692.516L472.226 70.1173Z" fill="#737373" fill-opacity="0.5" shape-rendering="crispEdges"/>
 </g>
 </g>
 <defs>
-<filter id="filter0_d_9_2" x="21" y="25" width="958" height="958" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_9_2" x="107.686" y="55.1243" width="786.891" height="690.587" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="4"/>
