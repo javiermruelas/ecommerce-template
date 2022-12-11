@@ -4,35 +4,7 @@
 	import '../app.postcss';
 
 	import { AppShell, AppBar, Divider, LightSwitch } from '@skeletonlabs/skeleton';
-	import { loop_guard } from 'svelte/internal';
-
-	// All of this code was used to switch the dark mode icon
-	// import { onMount } from 'svelte';
-
-	// let logoSource:string = 'logo.svg';
-
-	// onMount(async () => {
-	// 	let html = document.querySelector('html');
-
-	// 	if (html != null) {
-	// 		const htmlElement: HTMLElement = html;
-	// 		const originalState = htmlElement.classList.contains('dark');
-	// 		let previousState = originalState;
-
-	// 		const darkModeObserver = new MutationObserver((mutations) => { 
-	// 			mutations.forEach((mutation: any) => {
-	// 				if (mutation.attributeName === 'class') {
-	// 					const currentState = mutation.target.classList.contains('dark');
-	// 					if (previousState !== currentState) {
-	// 						logoSource = currentState ? 'logo_dark.svg' : 'logo.svg';
-	// 						previousState = currentState;
-	// 					}
-	// 				}
-	// 			});
-	// 		});
-	// 		darkModeObserver.observe(htmlElement, {attributes: true, childList: false});
-	// 	}
-	// });
+	import AnimatedBackground from '../components/AnimatedBackground.svelte';
 </script>
 
 <AppShell>
@@ -70,6 +42,7 @@
 
     <!-- Page Content Slot -->
     <slot />
+	<AnimatedBackground/>
 	
 	<!-- Page Footer -->
 	<svelte:fragment slot="pageFooter">
