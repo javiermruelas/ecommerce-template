@@ -12,18 +12,21 @@
     #square-sm {
         width: 5vw;
         height: 5vw;
+        animation: rotate-left 10000ms infinite;
     }
     #circle-med,
     #triangle-med,
     #square-med {
         width: 10vw;
         height: 10vw;
+        animation: rotate-right 100000ms infinite;
     }
     #circle-lrg,
     #triangle-lrg,
     #square-lrg {
         width: 25vw;
         height: 25vw;
+        animation: rotate-alternate 1000000ms infinite;
     }
     #circle-sm {
         top: 55%;
@@ -63,19 +66,37 @@
     }
     .shape {
         z-index: -1;
-        animation: rotate 100000ms infinite;
         margin: 0;
         flex: none;
         position: absolute;
     }
 
-    @keyframes rotate {
-    0% {
-        transform: rotate(0deg);
+    @keyframes rotate-right {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
-    100% {
-        transform: rotate(360deg);
+    @keyframes rotate-left {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(-360deg);
+        }
     }
+    @keyframes rotate-alternate {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(-180deg)
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>
 
