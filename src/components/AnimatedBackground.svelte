@@ -29,15 +29,15 @@
         animation: rotate-alternate 1000000ms infinite;
     }
     #circle-sm {
+        top: 42%;
+        left: 5%;
+    }
+    #triangle-sm {
         top: 55%;
         left: 50%;
     }
-    #triangle-sm {
-        top: 75%;
-        left: 5%;
-    }
     #square-sm {
-        top: 42%;
+        top: 75%;
         left: 5%;
     }
     #circle-med {
