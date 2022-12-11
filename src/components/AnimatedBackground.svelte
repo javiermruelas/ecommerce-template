@@ -25,7 +25,7 @@
     #square-lrg {
         width: 25vw;
         height: 25vw;
-        animation: rotate-alternate 90000ms infinite;
+        animation: rotate-alternate 100000ms infinite;
     }
     #circle-sm {
         top: 42%;
@@ -103,10 +103,10 @@
 <div id="circle-med" class="shape"><img src="svg_shapes/circle_light.svg" alt="colorful shape"/></div>
 <div id="circle-lrg" class="shape"><img src="svg_shapes/circle_main.svg" alt="colorful shape"/></div>
 <div id="triangle-med" class="shape"><img src="svg_shapes/triangle_dark.svg" alt="colorful shape"/></div>
-<div id="triangle-lrg" class="shape"><img src="svg_shapes/triangle_light.svg" alt="colorful shape"/></div>
-<div id="triangle-sm" class="shape"><img src="svg_shapes/triangle_main.svg" alt="colorful shape"/></div>
-<div id="square-lrg" class="shape"><img src="svg_shapes/square_dark.svg" alt="colorful shape"/></div>
-<div id="square-sm" class="shape"><img src="svg_shapes/square_light.svg" alt="colorful shape"/></div>
+<div id="triangle-sm" class="shape"><img src="svg_shapes/triangle_light.svg" alt="colorful shape"/></div>
+<div id="triangle-lrg" class="shape"><img src="svg_shapes/triangle_main.svg" alt="colorful shape"/></div>
+<div id="square-sm" class="shape"><img src="svg_shapes/square_dark.svg" alt="colorful shape"/></div>
+<div id="square-lrg" class="shape"><img src="svg_shapes/square_light.svg" alt="colorful shape"/></div>
 <div id="square-med" class="shape"><img src="svg_shapes/square_main.svg" alt="colorful shape"/></div>
 
 
