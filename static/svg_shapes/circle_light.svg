@@ -1,5 +1,5 @@
 <svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="shape">
-<path id="circle_main" d="M950 500C950 748.528 748.528 950 500 950C251.472 950 50 748.528 50 500C50 251.472 251.472 50 500 50C748.528 50 950 251.472 950 500Z" fill="white" fill-opacity="0.5"/>
+<path id="circle_light" d="M950 500C950 748.528 748.528 950 500 950C251.472 950 50 748.528 50 500C50 251.472 251.472 50 500 50C748.528 50 950 251.472 950 500Z" fill="#D3D3D3" fill-opacity="0.5"/>
 </g>
 </svg>

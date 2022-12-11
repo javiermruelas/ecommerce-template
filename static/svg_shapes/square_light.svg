@@ -1,5 +1,5 @@
 <svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="shape">
-<rect id="square_main" x="50" y="50" width="900" height="900" rx="15" fill="white" fill-opacity="0.5"/>
+<rect id="square_light" x="50" y="50" width="900" height="900" rx="15" fill="#D3D3D3" fill-opacity="0.5"/>
 </g>
 </svg>

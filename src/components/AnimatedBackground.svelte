@@ -1,32 +1,31 @@
 <style>
     img {
         margin: 0;
-        display: inline-block;
+        display: block;
         box-sizing: border-box;
         width: 100%;
         height: 100%;
-        filter: drop-shadow(2px 2px 0 #999);
     }
     #circle-sm,
     #triangle-sm,
     #square-sm {
         width: 5vw;
         height: 5vw;
-        animation: rotate-left 10000ms infinite;
+        animation: rotate-left 50000ms infinite;
     }
     #circle-med,
     #triangle-med,
     #square-med {
         width: 10vw;
         height: 10vw;
-        animation: rotate-right 100000ms infinite;
+        animation: rotate-right 70000ms infinite;
     }
     #circle-lrg,
     #triangle-lrg,
     #square-lrg {
         width: 25vw;
         height: 25vw;
-        animation: rotate-alternate 1000000ms infinite;
+        animation: rotate-alternate 90000ms infinite;
     }
     #circle-sm {
         top: 42%;
@@ -50,7 +49,7 @@
     }
     #square-med {
         top: 65%;
-        left: 75%;
+        left: 65%;
     }
     #circle-lrg {
         top: 75%;
@@ -69,6 +68,7 @@
         margin: 0;
         flex: none;
         position: absolute;
+        filter: drop-shadow(4px 4px 1px #ccc);
     }
 
     @keyframes rotate-right {
