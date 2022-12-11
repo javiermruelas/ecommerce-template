@@ -94,7 +94,7 @@
             transform: rotate(-180deg)
         }
         100% {
-            transform: rotate(360deg);
+            transform: rotate(180deg);
         }
     }
 </style>
@@ -106,8 +106,8 @@
 <div id="triangle-sm" class="shape"><img src="svg_shapes/triangle_light.svg" alt="colorful shape"/></div>
 <div id="triangle-lrg" class="shape"><img src="svg_shapes/triangle_main.svg" alt="colorful shape"/></div>
 <div id="square-sm" class="shape"><img src="svg_shapes/square_dark.svg" alt="colorful shape"/></div>
-<div id="square-lrg" class="shape"><img src="svg_shapes/square_light.svg" alt="colorful shape"/></div>
-<div id="square-med" class="shape"><img src="svg_shapes/square_main.svg" alt="colorful shape"/></div>
+<div id="square-med" class="shape"><img src="svg_shapes/square_light.svg" alt="colorful shape"/></div>
+<div id="square-lrg" class="shape"><img src="svg_shapes/square_main.svg" alt="colorful shape"/></div>
 
 
 
