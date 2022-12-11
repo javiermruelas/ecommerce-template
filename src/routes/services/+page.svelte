@@ -2,9 +2,11 @@
     import { GradientHeading } from '@skeletonlabs/skeleton';
 </script>
 
-<GradientHeading tag="h1" direction="bg-gradient-to-br" from="from-primary-500" to="to-accent-500">
-    Services
-</GradientHeading>
+<div class="mx-auto flex flex-column justify-center content-center">
+	<GradientHeading class="mx-auto" tag="h1" direction="bg-gradient-to-br" from="from-accent-500" to="to-accent-600">
+		Services
+	</GradientHeading>
+</div>
 
 <div class="container mx-auto p-8 space-y-8">
 	<h1>Hello Skeleton</h1>
