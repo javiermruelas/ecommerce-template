@@ -68,7 +68,6 @@
         margin: 0;
         flex: none;
         position: absolute;
-        filter: drop-shadow(4px 4px 1px #ccc);
     }
 
     @keyframes rotate-right {
