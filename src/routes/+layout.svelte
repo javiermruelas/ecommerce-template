@@ -21,13 +21,33 @@
 			</div>
 
 			<svelte:fragment slot="trail">
-				<nav class="flex justify-center">
-					<ul class="flex justify-start">
-						<li><a href="/">Home</a></li>
-						<li><a href="/about">About</a></li>
-						<li><a href="/services">Services</a></li>
-						<li><a href="/products">Products</a></li>
-						<li><a href="/support">Support</a></li>
+				<nav class="list-nav">
+					<ul class="flex justify-center items-center">
+						<li class="my-0">
+							<a href="/">
+								<span class="flex-auto">Home</span>
+							</a>
+						</li>
+						<li class="my-0">
+							<a href="/about">
+								<span class="flex-auto">About</span>
+							</a>
+						</li>
+						<li class="my-0">
+							<a href="/services">
+								<span class="flex-auto">Services</span>
+							</a>
+						</li>
+						<li class="my-0">
+							<a href="/products">
+								<span class="flex-auto">Products</span>
+							</a>
+						</li>
+						<li class="my-0">
+							<a href="/support">
+								<span class="flex-auto">Support</span>
+							</a>
+						</li>
 					</ul>
 				</nav>
 				<Divider vertical={true} borderWidth="border-l" />
