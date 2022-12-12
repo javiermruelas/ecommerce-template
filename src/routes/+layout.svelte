@@ -23,27 +23,27 @@
 			<svelte:fragment slot="trail">
 				<nav class="list-nav">
 					<ul class="flex justify-center items-center">
-						<li class="my-0">
+						<li>
 							<a href="/">
 								<span class="flex-auto">Home</span>
 							</a>
 						</li>
-						<li class="my-0">
+						<li>
 							<a href="/about">
 								<span class="flex-auto">About</span>
 							</a>
 						</li>
-						<li class="my-0">
+						<li>
 							<a href="/services">
 								<span class="flex-auto">Services</span>
 							</a>
 						</li>
-						<li class="my-0">
+						<li>
 							<a href="/products">
 								<span class="flex-auto">Products</span>
 							</a>
 						</li>
-						<li class="my-0">
+						<li>
 							<a href="/support">
 								<span class="flex-auto">Support</span>
 							</a>
@@ -119,6 +119,10 @@
 </AppShell>
 
 <style>
+	nav.list-nav ul li {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+	}
 	.footer-made-with {
 		padding: 0 5%;
 	}
