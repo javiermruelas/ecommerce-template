@@ -15,4 +15,5 @@
 	<section class="card card-body">
 		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 	</section>
+	<hr />
 </div>
