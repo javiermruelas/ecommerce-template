@@ -1,9 +1,3 @@
-<script>
-	import PageHeader from '../components/PageHeader.svelte';
-</script>
-
-<PageHeader/>
-
 <div class="container mx-auto p-8 space-y-8">
 	<h1>Hello Skeleton</h1>
 	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
