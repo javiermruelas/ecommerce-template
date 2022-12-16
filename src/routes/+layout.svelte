@@ -11,10 +11,6 @@
     <!-- Header -->
     <svelte:fragment slot="header">
 		<AppBar slotLead="flex">
-			<!-- <svelte:fragment slot="lead">
-				
-			</svelte:fragment> -->
-
 			<div class="flex justify-start items-center">
 				<img src="logo.svg" height="15%" width="15%" alt="ecommerce template logo" class="mr-4" />
 				<h1 class="font-bold">ecommerce</h1>

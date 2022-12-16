@@ -4,7 +4,7 @@
 
     $: pathName = $page.url.pathname;
     $: pageName = pathName.substring(pathName.lastIndexOf('/') + 1);
-    $: pageTitle = pageName.length > 0 ? pageName : "homepage";
+    $: pageTitle = pageName.length > 0 ? pageName : "home";
 </script>
 
 {#if pageTitle}
