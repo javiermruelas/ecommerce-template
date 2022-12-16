@@ -5,6 +5,15 @@
 
 	import { AppShell, AppBar, Divider, LightSwitch } from '@skeletonlabs/skeleton';
 	import AnimatedBackground from '../components/AnimatedBackground.svelte';
+
+	import { page } from '$app/stores';
+	// handles text decoration in nav
+	$: pathName = $page.url.pathname;
+    $: pageName = pathName.substring(pathName.lastIndexOf('/') + 1);
+    $: pageTitle = pageName.length > 0 ? pageName : "home";
+
+	let navClasses = 'underline text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-500 active';
+
 </script>
 
 <AppShell>
@@ -21,37 +30,37 @@
 					<ul class="flex justify-center items-center">
 						<li>
 							<a href="/">
-								<span class="flex-auto">Home</span>
+								<span class="flex-auto decoration-amber-500 {pageTitle === 'home' ? navClasses : ''}">home</span>
 							</a>
 						</li>
 						<li>
 							<a href="/about">
-								<span class="flex-auto">About</span>
+								<span class="flex-auto decoration-amber-500 {pageTitle === 'about' ? navClasses : ''}">about</span>
 							</a>
 						</li>
 						<li>
 							<a href="/services">
-								<span class="flex-auto">Services</span>
+								<span class="flex-auto decoration-amber-500 {pageTitle === 'services' ? navClasses : ''}">services</span>
 							</a>
 						</li>
 						<li>
 							<a href="/products">
-								<span class="flex-auto">Products</span>
+								<span class="flex-auto decoration-amber-500 {pageTitle === 'products' ? navClasses : ''}">products</span>
 							</a>
 						</li>
 						<li>
 							<a href="/support">
-								<span class="flex-auto">Support</span>
+								<span class="flex-auto decoration-amber-500 {pageTitle === 'support' ? navClasses : ''}">support</span>
 							</a>
 						</li>
 					</ul>
 				</nav>
 				<Divider vertical={true} borderWidth="border-l" />
-				<button class="btn bg-accent-500 btn-base text-white" >Contact Us</button>
+				<button class="btn bg-accent-500 btn-base text-white" >contact us</button>
 				<Divider vertical={true} borderWidth="border-l" />
 				<LightSwitch />
 				<Divider vertical={true} borderWidth="border-l" />
-				<a class="btn bg-primary-500 btn-base text-white" href="https://github.com/javiermruelas/ecommerce-template" target="_blank" rel="noreferrer">GitHub</a>
+				<a class="btn bg-primary-500 btn-base text-white" href="https://github.com/javiermruelas/ecommerce-template" target="_blank" rel="noreferrer">github</a>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
@@ -79,24 +88,28 @@
 				</div>
 
 				<div class="flex flex-col justify-start content-center">
-					<h6 class="text-center">Made With</h6>
+					<h6 class="text-center">made with</h6>
 					<div class="footer-made-with flex flex-col justify-center">
-						<a class="btn btn-filled-accent text-white" href="https://kit.svelte.dev/" target="_blank" rel="noreferrer">SvelteKit</a>
-						<a class="btn btn-filled-accent text-white" href="https://tailwindcss.com/" target="_blank" rel="noreferrer">Tailwind</a>
-						<a class="btn btn-filled-accent text-white" href="https://skeleton.dev" target="_blank" rel="noreferrer">Skeleton</a>
-						<a class="btn btn-filled-accent text-white" href="https://stripe.com/" target="_blank" rel="noreferrer">Stripe</a>
-						<a class="btn btn-filled-accent text-white" href="https://supabase.com/" target="_blank" rel="noreferrer">Supabase</a>
-						<a class="btn btn-filled-primary text-white" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+						<a class="btn btn-filled-accent text-white" href="https://kit.svelte.dev/" target="_blank" rel="noreferrer">sveltekit</a>
+						<a class="btn btn-filled-accent text-white" href="https://tailwindcss.com/" target="_blank" rel="noreferrer">tailwind</a>
+						<a class="btn btn-filled-accent text-white" href="https://skeleton.dev" target="_blank" rel="noreferrer">skeleton</a>
+						<a class="btn btn-filled-accent text-white" href="https://stripe.com/" target="_blank" rel="noreferrer">stripe</a>
+						<a class="btn btn-filled-accent text-white" href="https://supabase.com/" target="_blank" rel="noreferrer">supabase</a>
+						<a class="btn btn-filled-primary text-white" href="https://github.com/" target="_blank" rel="noreferrer">github</a>
 					</div>
 				</div>
 	  
 				<div class="flex flex-col justify-start content-center">
-				  <h6 class="text-center">Quick Links</h6>
+				  <h6 class="text-center">quick links</h6>
 				  <ul class="list">
-					<li><span class="badge bg-accent-500">1.</span><a href="/">About Us</a></li>
-					<li><span class="badge bg-accent-500">2.</span><a href="/">Contact Us</a></li>
-					<li><span class="badge bg-accent-500">3.</span><a href="/">Privacy Policy</a></li>
-					<li><span class="badge bg-accent-500">4.</span><a href="/">Sitemap</a></li>
+					<li><span class="badge bg-accent-500">1.</span><a href="/">home</a></li>
+					<li><span class="badge bg-accent-500">2.</span><a href="/">about</a></li>
+					<li><span class="badge bg-accent-500">3.</span><a href="/">services</a></li>
+					<li><span class="badge bg-accent-500">4.</span><a href="/">products</a></li>
+					<li><span class="badge bg-accent-500">5.</span><a href="/">support</a></li>
+					<li><span class="badge bg-accent-500">6.</span><a href="/">contact</a></li>
+					<li><span class="badge bg-accent-500">7.</span><a href="/">privacy policy</a></li>
+					<li><span class="badge bg-accent-500">8.</span><a href="/">sitemap</a></li>
 				  </ul>
 				</div>
 			</div>
@@ -119,6 +132,22 @@
 	nav.list-nav ul li {
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
+	}
+	nav.list-nav ul li a {
+		text-underline-offset: 8px;
+	}
+	.active {
+		animation: active 600ms ease;
+	}
+	@keyframes active {
+		0% {
+			position: relative;
+			top: 3px;
+		}
+		100% {
+			position: relative;
+			top: 0;
+		}
 	}
 
 	/* footer */
