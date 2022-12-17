@@ -12,7 +12,7 @@
     $: pageName = pathName.substring(pathName.lastIndexOf('/') + 1);
     $: pageTitle = pageName.length > 0 ? pageName : "home";
 
-	let navClasses = 'underline text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-500 active';
+	let navClasses = 'underline active';
 
 </script>
 
@@ -21,8 +21,14 @@
     <svelte:fragment slot="header">
 		<AppBar slotLead="flex">
 			<div class="flex justify-start items-center">
-				<img src="logo.svg" height="15%" width="15%" alt="ecommerce template logo" class="mr-4" />
-				<h1 class="font-bold">ecommerce</h1>
+				<div class="logo mr-4">
+					<img src="logo.svg" height="100%" width="100%" alt="ecommerce template logo" />
+				</div>
+				<div class="flex flex-col justify-center">
+					<h1 class="font-bold">ecommerce</h1>
+					<p class="text-left">made <span class="text-amber-500">simple</span></p>
+				</div>
+				
 			</div>
 
 			<svelte:fragment slot="trail">
@@ -30,27 +36,27 @@
 					<ul class="flex justify-center items-center">
 						<li>
 							<a href="/">
-								<span class="flex-auto decoration-amber-500 {pageTitle === 'home' ? navClasses : ''}">home</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'home' ? navClasses : ''}">home</span>
 							</a>
 						</li>
 						<li>
 							<a href="/about">
-								<span class="flex-auto decoration-amber-500 {pageTitle === 'about' ? navClasses : ''}">about</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'about' ? navClasses : ''}">about</span>
 							</a>
 						</li>
 						<li>
 							<a href="/services">
-								<span class="flex-auto decoration-amber-500 {pageTitle === 'services' ? navClasses : ''}">services</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'services' ? navClasses : ''}">services</span>
 							</a>
 						</li>
 						<li>
 							<a href="/products">
-								<span class="flex-auto decoration-amber-500 {pageTitle === 'products' ? navClasses : ''}">products</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'products' ? navClasses : ''}">products</span>
 							</a>
 						</li>
 						<li>
 							<a href="/support">
-								<span class="flex-auto decoration-amber-500 {pageTitle === 'support' ? navClasses : ''}">support</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'support' ? navClasses : ''}">support</span>
 							</a>
 						</li>
 					</ul>
@@ -60,7 +66,7 @@
 				<Divider vertical={true} borderWidth="border-l" />
 				<LightSwitch />
 				<Divider vertical={true} borderWidth="border-l" />
-				<a class="btn bg-primary-500 btn-base text-white" href="https://github.com/javiermruelas/ecommerce-template" target="_blank" rel="noreferrer">github</a>
+				<a class="btn bg-primary-500 btn-base text-white" href="/">sign in</a>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
@@ -75,8 +81,11 @@
 
 			<div class="grid grid-cols-4 gap-4">
 				<div class="col-span-2 flex flex-col justify-around content-center">
-					<img class="mx-auto" src="logo.svg" height="10%" width="10%" alt="ecommerce template logo" />
-					<p class="text-center">Helping respectable and professional businesses establish a digital footprint in the ecommerce landscape.</p>
+					<div class="mx-auto mini-logo">
+						<img  src="logo.svg" height="100%" width="100%" alt="ecommerce template logo" />
+					</div>
+					
+					<pre class="text-center text-neutral-500">"Helping respectable businesses integrate themselves into the digital landscape, the easy way."</pre>
 					<div>
 						<ul class="flex justify-evenly content-center">
 							<li><a class="facebook" href="/"><i class="fa fa-facebook"></i></a></li>
@@ -89,13 +98,13 @@
 
 				<div class="flex flex-col justify-start content-center">
 					<h6 class="text-center">made with</h6>
-					<div class="footer-made-with flex flex-col justify-center">
-						<a class="btn btn-filled-accent text-white" href="https://kit.svelte.dev/" target="_blank" rel="noreferrer">sveltekit</a>
-						<a class="btn btn-filled-accent text-white" href="https://tailwindcss.com/" target="_blank" rel="noreferrer">tailwind</a>
-						<a class="btn btn-filled-accent text-white" href="https://skeleton.dev" target="_blank" rel="noreferrer">skeleton</a>
-						<a class="btn btn-filled-accent text-white" href="https://stripe.com/" target="_blank" rel="noreferrer">stripe</a>
-						<a class="btn btn-filled-accent text-white" href="https://supabase.com/" target="_blank" rel="noreferrer">supabase</a>
-						<a class="btn btn-filled-primary text-white" href="https://github.com/" target="_blank" rel="noreferrer">github</a>
+					<div class="footer-made-with flex flex-col justify-around">
+						<a class="btn btn-xl btn-filled-accent text-white" href="https://kit.svelte.dev/" target="_blank" rel="noreferrer">sveltekit</a>
+						<a class="btn btn-xl btn-filled-accent text-white" href="https://tailwindcss.com/" target="_blank" rel="noreferrer">tailwind</a>
+						<a class="btn btn-xl btn-filled-accent text-white" href="https://skeleton.dev" target="_blank" rel="noreferrer">skeleton</a>
+						<a class="btn btn-xl btn-filled-accent text-white" href="https://stripe.com/" target="_blank" rel="noreferrer">stripe</a>
+						<a class="btn btn-xl btn-filled-accent text-white" href="https://supabase.com/" target="_blank" rel="noreferrer">supabase</a>
+						<a class="btn btn-xl btn-filled-primary text-white" href="https://github.com/" target="_blank" rel="noreferrer">github</a>
 					</div>
 				</div>
 	  
@@ -129,6 +138,10 @@
 
 <style>
 	/* nav bar */
+	.logo {
+		height: 15%;
+		width: 15%;
+	}
 	nav.list-nav ul li {
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
@@ -151,6 +164,10 @@
 	}
 
 	/* footer */
+	.mini-logo {
+		width: 10%;
+		height: 10%;
+	}
 	.footer-made-with {
 		padding: 0 5%;
 	}
