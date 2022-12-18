@@ -39,8 +39,8 @@
 					<img src="logo.svg" height="100%" width="100%" alt="ecommerce template logo" />
 				</div>
 				<div class="flex flex-col justify-center">
-					<h1 class="font-bold">ecommerce</h1>
-					<p class="text-left">made <span class="text-amber-500">simple</span>.</p>
+					<h1 class="title font-bold">ecommerce</h1>
+					<p class="tagline text-left">made <span class="text-amber-500">simple</span>.</p>
 				</div>
 				
 			</div>
@@ -158,6 +158,16 @@
 	.logo {
 		height: 15%;
 		width: 15%;
+		transform-origin: center;
+		animation: bounce-in 1000ms ease-in-out;
+	}
+	@keyframes bounce-in {
+		0% {
+			transform: translate(-10px, 10px) rotate(-180deg) scale(0.7);
+		}
+		100% {
+			transform: translate(0, 0) rotate(0) scale(1);
+		}
 	}
 	nav.list-nav ul li {
 		margin-top: 0 !important;
@@ -179,11 +189,33 @@
 			top: 0;
 		}
 	}
+	.tagline {
+		animation: slide-in-left 1000ms ease-in-out;
+	}
+	@keyframes slide-in-left {
+		0% {
+			transform: translateX(-5%);
+		}
+		100% {
+			transform: translateX(0);
+		}
+	}
+	.title {
+		animation: slide-in-right 1000ms ease-in-out;
+	}
+	@keyframes slide-in-right {
+		0% {
+			transform: translateX(5%);
+		}
+		100% {
+			transform: translateX(0);
+		}
+	}
 
 	/* footer */
 	.mini-logo {
-		width: 10%;
-		height: 10%;
+		width: 15%;
+		height: 15%;
 	}
 	ul.list li a {
 		text-align: center;
