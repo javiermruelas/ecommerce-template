@@ -36,37 +36,37 @@
 					<ul class="flex justify-center items-center">
 						<li>
 							<a href="/">
-								<span class="flex-auto decoration-yellow-500 {pageTitle === 'home' ? navClasses : ''}">home</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'home' ? navClasses : ''}">Home</span>
 							</a>
 						</li>
 						<li>
 							<a href="/about">
-								<span class="flex-auto decoration-yellow-500 {pageTitle === 'about' ? navClasses : ''}">about</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'about' ? navClasses : ''}">About</span>
 							</a>
 						</li>
 						<li>
 							<a href="/services">
-								<span class="flex-auto decoration-yellow-500 {pageTitle === 'services' ? navClasses : ''}">services</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'services' ? navClasses : ''}">Services</span>
 							</a>
 						</li>
 						<li>
 							<a href="/products">
-								<span class="flex-auto decoration-yellow-500 {pageTitle === 'products' ? navClasses : ''}">products</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'products' ? navClasses : ''}">Products</span>
 							</a>
 						</li>
 						<li>
 							<a href="/support">
-								<span class="flex-auto decoration-yellow-500 {pageTitle === 'support' ? navClasses : ''}">support</span>
+								<span class="flex-auto decoration-yellow-500 {pageTitle === 'support' ? navClasses : ''}">Support</span>
 							</a>
 						</li>
 					</ul>
 				</nav>
 				<Divider vertical={true} borderWidth="border-l" />
-				<button class="btn bg-accent-500 btn-base text-white" >contact us</button>
+				<button class="btn bg-accent-500 btn-base text-white" >Contact</button>
 				<Divider vertical={true} borderWidth="border-l" />
 				<LightSwitch />
 				<Divider vertical={true} borderWidth="border-l" />
-				<a class="btn bg-primary-500 btn-base text-white" href="/">sign in</a>
+				<a class="btn bg-primary-500 btn-base text-white" href="/">Sign Up</a>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
@@ -82,10 +82,11 @@
 			<div class="grid grid-cols-4 gap-4">
 				<div class="col-span-2 flex flex-col justify-around content-center">
 					<div class="mx-auto mini-logo">
-						<img  src="logo.svg" height="100%" width="100%" alt="ecommerce template logo" />
+						<img  src="building_blocks.svg" height="100%" width="100%" alt="ecommerce template logo" />
 					</div>
 					
 					<pre class="text-center text-neutral-500">"Helping respectable businesses integrate themselves into the digital landscape, the easy way."</pre>
+
 					<div>
 						<ul class="flex justify-evenly content-center">
 							<li><a class="facebook" href="/"><i class="fa fa-facebook"></i></a></li>
@@ -97,28 +98,28 @@
 				</div>
 
 				<div class="flex flex-col justify-start content-center">
-					<h6 class="text-center">made with</h6>
-					<div class="footer-made-with flex flex-col justify-around">
-						<a class="btn btn-xl btn-filled-accent text-white" href="https://kit.svelte.dev/" target="_blank" rel="noreferrer">sveltekit</a>
-						<a class="btn btn-xl btn-filled-accent text-white" href="https://tailwindcss.com/" target="_blank" rel="noreferrer">tailwind</a>
-						<a class="btn btn-xl btn-filled-accent text-white" href="https://skeleton.dev" target="_blank" rel="noreferrer">skeleton</a>
-						<a class="btn btn-xl btn-filled-accent text-white" href="https://stripe.com/" target="_blank" rel="noreferrer">stripe</a>
-						<a class="btn btn-xl btn-filled-accent text-white" href="https://supabase.com/" target="_blank" rel="noreferrer">supabase</a>
-						<a class="btn btn-xl btn-filled-primary text-white" href="https://github.com/" target="_blank" rel="noreferrer">github</a>
-					</div>
+					<h6 class="text-center">Made With</h6>
+					<ul class="list">
+						<li><a href="https://kit.svelte.dev/" target="_blank" rel="noreferrer">SvelteKit</a></li>
+						<li><a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">Tailwind</a></li>
+						<li><a href="https://skeleton.dev" target="_blank" rel="noreferrer">Skeleton</a></li>
+						<li><a href="https://stripe.com/" target="_blank" rel="noreferrer">Stripe</a></li>
+						<li><a href="https://supabase.com/" target="_blank" rel="noreferrer">Supabase</a></li>
+						<li><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a></li>
+					</ul>
 				</div>
 	  
 				<div class="flex flex-col justify-start content-center">
-				  <h6 class="text-center">quick links</h6>
+				  <h6 class="text-center">Quick Links</h6>
 				  <ul class="list">
-					<li><span class="badge bg-accent-500">1.</span><a href="/">home</a></li>
-					<li><span class="badge bg-accent-500">2.</span><a href="/">about</a></li>
-					<li><span class="badge bg-accent-500">3.</span><a href="/">services</a></li>
-					<li><span class="badge bg-accent-500">4.</span><a href="/">products</a></li>
-					<li><span class="badge bg-accent-500">5.</span><a href="/">support</a></li>
-					<li><span class="badge bg-accent-500">6.</span><a href="/">contact</a></li>
-					<li><span class="badge bg-accent-500">7.</span><a href="/">privacy policy</a></li>
-					<li><span class="badge bg-accent-500">8.</span><a href="/">sitemap</a></li>
+					<li><a href="/">Home</a></li>
+					<li><a href="/">About</a></li>
+					<li><a href="/">Services</a></li>
+					<li><a href="/">Products</a></li>
+					<li><a href="/">Support</a></li>
+					<li><a href="/">Contact</a></li>
+					<li><a href="/">Privacy Policy</a></li>
+					<li><a href="/">Sitemap</a></li>
 				  </ul>
 				</div>
 			</div>
@@ -150,7 +151,7 @@
 		text-underline-offset: 8px;
 	}
 	.active {
-		animation: active 600ms ease;
+		animation: active 400ms ease;
 	}
 	@keyframes active {
 		0% {
@@ -168,10 +169,8 @@
 		width: 10%;
 		height: 10%;
 	}
-	.footer-made-with {
-		padding: 0 5%;
-	}
-	.footer-made-with a {
-		margin: 0 0 5px 0;
-	}
+	ul.list li a {
+		text-align: center;
+		width: 100%;
+	} 
 </style>
