@@ -1,18 +1,32 @@
-<script lang="typescript">
+<script lang="ts">
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-
 	import { AppShell, AppBar, Divider, LightSwitch } from '@skeletonlabs/skeleton';
 	import AnimatedBackground from '../components/AnimatedBackground.svelte';
-
+	import { Modal, modalStore } from '@skeletonlabs/skeleton';
+	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
+
 	// handles text decoration in nav
 	$: pathName = $page.url.pathname;
     $: pageName = pathName.substring(pathName.lastIndexOf('/') + 1);
     $: pageTitle = pageName.length > 0 ? pageName : "home";
 
 	let navClasses = 'underline active';
+
+	// function triggerAlert(): void {
+	// 	const prompt: ModalSettings = {
+	// 		type: 'form',
+	// 		title: 'Enter Name',
+	// 		body: 'Provide your first name in the field below.',
+	// 		// Populates the initial input value
+	// 		value: 'Skeleton',
+	// 		// Returns the updated response value
+	// 		response: (r: string) => console.log('response:', r)
+	// 	};
+	// 	modalStore.trigger(prompt);
+	// }
 
 </script>
 
@@ -26,7 +40,7 @@
 				</div>
 				<div class="flex flex-col justify-center">
 					<h1 class="font-bold">ecommerce</h1>
-					<p class="text-left">made <span class="text-amber-500">simple</span></p>
+					<p class="text-left">made <span class="text-amber-500">simple</span>.</p>
 				</div>
 				
 			</div>
@@ -62,7 +76,7 @@
 					</ul>
 				</nav>
 				<Divider vertical={true} borderWidth="border-l" />
-				<button class="btn bg-accent-500 btn-base text-white" >Contact</button>
+				<button class="btn bg-accent-500 btn-base text-white" on:click="{() => triggerAlert()}">Contact</button>
 				<Divider vertical={true} borderWidth="border-l" />
 				<LightSwitch />
 				<Divider vertical={true} borderWidth="border-l" />
@@ -74,6 +88,8 @@
     <!-- Page Content Slot -->
     <slot />
 	<AnimatedBackground/>
+	<Modal />
+
 	
 	<!-- Page Footer -->
 	<svelte:fragment slot="pageFooter">
