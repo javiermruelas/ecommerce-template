@@ -88,7 +88,7 @@
 					<pre class="text-center text-neutral-500">"Helping respectable businesses integrate themselves into the digital landscape, the easy way."</pre>
 
 					<div>
-						<ul class="flex justify-evenly content-center">
+						<ul class="flex justify-evenly content-center icons">
 							<li><a class="facebook" href="/"><i class="fa fa-facebook"></i></a></li>
 							<li><a class="twitter" href="/"><i class="fa fa-twitter"></i></a></li>
 							<li><a class="dribbble" href="/"><i class="fa fa-dribbble"></i></a></li>
@@ -98,7 +98,7 @@
 				</div>
 
 				<div class="flex flex-col justify-start content-center">
-					<h6 class="text-center">Made With</h6>
+					<h6 class="text-center underline underline-offset-4">Made With</h6>
 					<ul class="list">
 						<li><a href="https://kit.svelte.dev/" target="_blank" rel="noreferrer">SvelteKit</a></li>
 						<li><a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">Tailwind</a></li>
@@ -110,7 +110,7 @@
 				</div>
 	  
 				<div class="flex flex-col justify-start content-center">
-				  <h6 class="text-center">Quick Links</h6>
+				  <h6 class="text-center underline underline-offset-4">Quick Links</h6>
 				  <ul class="list">
 					<li><a href="/">Home</a></li>
 					<li><a href="/">About</a></li>
@@ -172,5 +172,11 @@
 	ul.list li a {
 		text-align: center;
 		width: 100%;
+	} 
+	ul.list li a:hover {
+		color: #F59F0B !important;
+	}
+	ul.icons li a:hover {
+		color: rgb(var(--color-accent-500) / var(--tw-text-opacity)) !important;
 	} 
 </style>
