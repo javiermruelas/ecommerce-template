@@ -158,16 +158,6 @@
 	.logo {
 		height: 15%;
 		width: 15%;
-		transform-origin: center;
-		animation: bounce-in 1000ms ease-in-out;
-	}
-	@keyframes bounce-in {
-		0% {
-			transform: translate(-10px, 10px) rotate(-180deg) scale(0.7);
-		}
-		100% {
-			transform: translate(0, 0) rotate(0) scale(1);
-		}
 	}
 	nav.list-nav ul li {
 		margin-top: 0 !important;
