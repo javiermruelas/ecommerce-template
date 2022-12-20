@@ -82,7 +82,7 @@
 				<Divider vertical={true} borderWidth="border-l" />
 				<LightSwitch />
 				<Divider vertical={true} borderWidth="border-l" />
-				<a class="btn bg-primary-500 btn-base text-white" href="/">Sign In</a>
+				<a class="btn bg-primary-500 btn-base text-white" href="/signIn">Sign In</a>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
@@ -123,7 +123,7 @@
 						<li><a href="https://skeleton.dev" target="_blank" rel="noreferrer">Skeleton</a></li>
 						<li><a href="https://stripe.com/" target="_blank" rel="noreferrer">Stripe</a></li>
 						<li><a href="https://supabase.com/" target="_blank" rel="noreferrer">Supabase</a></li>
-						<li><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a></li>
+						<li><a href="https://github.com/javiermruelas/ecommerce-template" target="_blank" rel="noreferrer">GitHub</a></li>
 					</ul>
 				</div>
 	  
