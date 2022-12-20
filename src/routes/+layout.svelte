@@ -2,11 +2,13 @@
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import { AppShell, AppBar, Divider, LightSwitch } from '@skeletonlabs/skeleton';
-	import AnimatedBackground from '../components/AnimatedBackground.svelte';
-	import { Modal, modalStore } from '@skeletonlabs/skeleton';
-	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
+
 	import { page } from '$app/stores';
+	import { AppShell, AppBar, Divider, LightSwitch, Modal, modalStore } from '@skeletonlabs/skeleton';
+	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
+
+	import AnimatedBackground from '../components/AnimatedBackground.svelte';
+	import ContactModal from "../components/ContactModal.svelte";
 
 	// handles text decoration in nav
 	$: pathName = $page.url.pathname;
@@ -15,18 +17,18 @@
 
 	let navClasses = 'underline active';
 
-	// function triggerAlert(): void {
-	// 	const prompt: ModalSettings = {
-	// 		type: 'form',
-	// 		title: 'Enter Name',
-	// 		body: 'Provide your first name in the field below.',
-	// 		// Populates the initial input value
-	// 		value: 'Skeleton',
-	// 		// Returns the updated response value
-	// 		response: (r: string) => console.log('response:', r)
-	// 	};
-	// 	modalStore.trigger(prompt);
-	// }
+	function triggerModal(): void {
+		const modalComponent: ModalComponent = {
+			ref: ContactModal
+		};
+		console.log(modalComponent);
+		const d: ModalSettings = {
+			type: 'component',
+			component: modalComponent
+			// NOTE: title, body, response, etc are supported!
+		};
+		modalStore.trigger(d);
+	}
 
 </script>
 
@@ -76,11 +78,11 @@
 					</ul>
 				</nav>
 				<Divider vertical={true} borderWidth="border-l" />
-				<button class="btn bg-accent-500 btn-base text-white" on:click="{() => triggerAlert()}">Contact</button>
+				<button class="btn bg-accent-500 btn-base text-white" on:click="{() => triggerModal()}">Contact</button>
 				<Divider vertical={true} borderWidth="border-l" />
 				<LightSwitch />
 				<Divider vertical={true} borderWidth="border-l" />
-				<a class="btn bg-primary-500 btn-base text-white" href="/">Sign Up</a>
+				<a class="btn bg-primary-500 btn-base text-white" href="/">Sign In</a>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
@@ -88,7 +90,7 @@
     <!-- Page Content Slot -->
     <slot />
 	<AnimatedBackground/>
-	<Modal />
+	<Modal background={'bg-surface-100-800-token'} padding={'p-12'} buttonPositive={'bg-amber-500'}/>
 
 	
 	<!-- Page Footer -->
