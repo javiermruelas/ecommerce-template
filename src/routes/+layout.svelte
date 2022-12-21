@@ -85,7 +85,7 @@
     <!-- Page Content Slot -->
     <slot />
 	<AnimatedBackground/>
-	<Modal background={'bg-surface-100-800-token'} padding={'p-12'} buttonPositive={'bg-amber-500'}/>
+	<Modal background={'bg-surface-100-800-token'} padding={'p-12'} buttonPositive={'bg-amber-500'} regionFooter={'flex-start'}/>
 
 	
 	<!-- Page Footer -->
