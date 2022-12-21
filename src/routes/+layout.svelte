@@ -70,11 +70,6 @@
 								<span class="flex-auto decoration-yellow-500 {pageTitle === 'products' ? navClasses : ''}">Products</span>
 							</a>
 						</li>
-						<li>
-							<a href="/support">
-								<span class="flex-auto decoration-yellow-500 {pageTitle === 'support' ? navClasses : ''}">Support</span>
-							</a>
-						</li>
 					</ul>
 				</nav>
 				<Divider vertical={true} borderWidth="border-l" />
@@ -130,11 +125,9 @@
 				<div class="flex flex-col justify-start content-center">
 				  <h6 class="text-center underline underline-offset-4">Quick Links</h6>
 				  <ul class="list">
-					<li><a href="/">Home</a></li>
 					<li><a href="/">About</a></li>
 					<li><a href="/">Services</a></li>
 					<li><a href="/">Products</a></li>
-					<li><a href="/">Support</a></li>
 					<li><a href="/">Contact</a></li>
 					<li><a href="/">Privacy Policy</a></li>
 					<li><a href="/">Sitemap</a></li>
