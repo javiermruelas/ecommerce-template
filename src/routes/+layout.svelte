@@ -1,12 +1,15 @@
 <script lang="ts">
+	// global styles
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 
+	// svelte dependencies
 	import { page } from '$app/stores';
 	import { AppShell, AppBar, Divider, LightSwitch, Modal, modalStore } from '@skeletonlabs/skeleton';
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 
+	// components
 	import AnimatedBackground from '../components/AnimatedBackground.svelte';
 	import ContactModal from "../components/ContactModal.svelte";
 
@@ -14,9 +17,9 @@
 	$: pathName = $page.url.pathname;
     $: pageName = pathName.substring(pathName.lastIndexOf('/') + 1);
     $: pageTitle = pageName.length > 0 ? pageName : "home";
-
 	let navClasses = 'underline active';
 
+	// handles modal
 	function triggerModal(): void {
 		const modalComponent: ModalComponent = {
 			ref: ContactModal
@@ -25,7 +28,6 @@
 		const d: ModalSettings = {
 			type: 'component',
 			component: modalComponent
-			// NOTE: title, body, response, etc are supported!
 		};
 		modalStore.trigger(d);
 	}
