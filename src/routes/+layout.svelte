@@ -35,7 +35,6 @@
 </script>
 
 <AppShell>
-    <!-- Header -->
     <svelte:fragment slot="header">
 		<AppBar slotLead="flex">
 			<div class="flex justify-start items-center">
@@ -82,13 +81,10 @@
 		</AppBar>
 	</svelte:fragment>
 
-    <!-- Page Content Slot -->
     <slot />
 	<AnimatedBackground/>
 	<Modal background={'bg-surface-100-800-token'} padding={'p-12'} buttonPositive={'bg-amber-500'} regionFooter={'flex-start'}/>
 
-	
-	<!-- Page Footer -->
 	<svelte:fragment slot="pageFooter">
 		<footer class="bg-surface-100-800-token flex flex-col p-4">
 
