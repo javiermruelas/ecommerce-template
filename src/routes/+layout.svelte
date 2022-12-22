@@ -37,9 +37,7 @@
     <svelte:fragment slot="header">
 		<AppBar slotLead="flex">
 			<div class="flex justify-start items-center">
-				<div class="logo mr-4">
-					<img src="logo.svg" height="100%" width="100%" alt="ecommerce template logo" />
-				</div>
+				<img class="mr-4" src="logo.svg" height="15%" width="15%" alt="ecommerce template logo" />
 				<div class="flex flex-col justify-center">
 					<h1 class="title font-bold">ecommerce</h1>
 					<p class="tagline text-left">made <span class="text-amber-500">simple</span>.</p>
@@ -92,12 +90,10 @@
 	<svelte:fragment slot="pageFooter">
 		<footer class="bg-surface-100-800-token flex flex-col p-4">
 
-			<div class="grid grid-cols-4 gap-4">
-				<div class="col-span-2 flex flex-col justify-around content-center">
-					<div class="mx-auto mini-logo">
-						<img  src="building_blocks.svg" height="100%" width="100%" alt="ecommerce template logo" />
-					</div>
-					
+			<div class="grid grid-cols-4 grid-rows-1 gap-4">
+				<div class="col-span-2 flex flex-col justify-between content-center">
+					<img class="mx-auto" src="building_blocks.svg" height="20%" width="20%" alt="ecommerce template logo" />
+				
 					<pre class="text-center text-neutral-500">"Helping respectable businesses integrate themselves into the digital landscape, the easy way."</pre>
 
 					<div>
@@ -150,10 +146,6 @@
 
 <style>
 	/* nav bar */
-	.logo {
-		height: 15%;
-		width: 15%;
-	}
 	nav.list-nav ul li {
 		margin-top: 0 !important;
 		margin-bottom: 0 !important;
@@ -198,10 +190,6 @@
 	}
 
 	/* footer */
-	.mini-logo {
-		width: 15%;
-		height: 15%;
-	}
 	ul.list li a {
 		text-align: center;
 		width: 100%;
