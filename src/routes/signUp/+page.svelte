@@ -1,5 +1,8 @@
 <script lang="ts">
-  
+  import { createClient } from '@supabase/auth-helpers-sveltekit';
+  import { env } from '$env/dynamic/public';
+
+  export const supabase = createClient(env.PUBLIC_SUPABASE_URL, env.PUBLIC_SUPABASE_ANON_KEY)
 </script>
 
 <div class="card w-1/2 mx-auto my-8 p-24 space-y-8">
