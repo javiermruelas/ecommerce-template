@@ -1,3 +1,7 @@
+<script lang="ts">
+  
+</script>
+
 <div class="card w-1/2 mx-auto my-8 p-24 space-y-8">
   <h1>Register</h1>
   <form>
