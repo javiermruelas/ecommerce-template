@@ -10,8 +10,8 @@
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 
 	// components
-	import AnimatedBackground from '../components/AnimatedBackground.svelte';
-	import ContactModal from "../components/ContactModal.svelte";
+	import AnimatedBackground from '$lib/components/AnimatedBackground.svelte';
+	import ContactModal from "$lib/components/ContactModal.svelte";
 
 	// handles text decoration in nav
 	$: pathName = $page.url.pathname;
