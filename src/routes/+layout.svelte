@@ -13,6 +13,24 @@
 	import AnimatedBackground from '$lib/components/AnimatedBackground.svelte';
 	import ContactModal from "$lib/components/ContactModal.svelte";
 
+	// supabase dependencies
+	import { supabase } from '$lib/db';
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+
+	// auth helper functionality
+	onMount(() => {
+		const {
+			data: { subscription },
+		} = supabase.auth.onAuthStateChange(() => {
+			invalidate('supabase:auth')
+		});
+
+		return () => {
+			subscription.unsubscribe()
+		}
+	});
+
 	// handles text decoration in nav
 	$: pathName = $page.url.pathname;
     $: pageName = pathName.substring(pathName.lastIndexOf('/') + 1);
