@@ -31,6 +31,14 @@
 		}
 	});
 
+	async function signOut() {
+		const { error } = await supabase.auth.signOut();
+
+		if (error) {
+		console.log(error);
+		}
+	}
+
 	// handles text decoration in nav
 	$: pathName = $page.url.pathname;
     $: pageName = pathName.substring(pathName.lastIndexOf('/') + 1);
@@ -94,7 +102,11 @@
 				<Divider vertical={true} borderWidth="border-l" />
 				<LightSwitch />
 				<Divider vertical={true} borderWidth="border-l" />
-				<a class="btn bg-primary-500 btn-base text-white" href="/signIn">Sign In</a>
+				{#if !$page.data.session}
+					<a class="btn bg-primary-500 btn-base text-white" href="/signIn">Sign In</a>
+				{:else}
+					<button class="btn bg-primary-500 btn-base text-white" on:click={signOut}>Sign Out</button>
+				{/if}
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
