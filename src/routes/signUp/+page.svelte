@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { supabase } from "$lib/db"
+  import { supabase } from "$lib/db";
 
   const formData = {
     name: '',
