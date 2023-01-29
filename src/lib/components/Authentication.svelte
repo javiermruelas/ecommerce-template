@@ -14,7 +14,7 @@
                     name: '',
                     email: '',
                     password: '',
-                    passwordRetype: ''
+                    passwordConfirmation: ''
                 }
             };
             break;
@@ -27,6 +27,21 @@
                 }
             };
             break;
+        case 'passwordRecovery':
+            authForm = {
+                formTitle: 'Recover your email',
+                formData: {
+                    recoveryEmail: ''
+                }
+            }
+        case 'passwordReset':
+            authForm = {
+                formTitle: 'Reset your password',
+                formData: {
+                    password: '',
+                    passwordConfirmation: ''
+                }
+            }
         default:
             console.error('Authentication type not recognized.');
             break;
@@ -59,6 +74,10 @@
             console.log(data);
         }
     }
+
+    async function sendRecoveryEmail() {
+        console.log("to do");
+    }
     
     function submit() {
         switch(authType) {
@@ -67,6 +86,9 @@
                 break;
             case 'signIn':
                 signIn();
+                break;
+            case 'passwordRecovery':
+                sendRecoveryEmail();
                 break;
             default:
                 console.error('Form submission not recognized due to unrecognized authentication type.');
@@ -94,7 +116,7 @@
             </div>
             <div class="mb-6">
                 <label for="confirm" class={labelClasses}>Please confirm your password</label>
-                <input bind:value={authForm.formData.passwordRetype} type="password" id="confirm" class={inputClasses} required>
+                <input bind:value={authForm.formData.passwordConfirmation} type="password" id="confirm" class={inputClasses} required>
             </div>
         {/if}
         {#if authType === 'signIn'}
@@ -119,6 +141,12 @@
                 <label for="remember" class="ml-2 text-sm font-medium">Remember me</label>
             </div>
         {/if}
+        {#if authType === 'passwordRecovery'}
+            <div class="mb-6">
+                <label for="email" class={labelClasses}>Please enter your email address, we'll use this to send you a recovery email.</label>
+                <input type="email" id="email" class={inputClasses} placeholder="name@ecommerce.com" required>
+            </div>
+        {/if}
         <button type="submit" class="btn btn-sm bg-amber-500 hover:bg-amber-600 focus:ring-4 
         focus:outline-none focus:ring-amber-300 font-medium text-sm w-full sm:w-auto px-5 py-2.5
         text-center dark:bg-amber-500 dark:hover:bg-amber-400 dark:focus:ring-amber-600">
@@ -127,11 +155,11 @@
     </form>
     <hr />
     {#if authType === 'signUp'}
-        <p class="mt-2 text-sm">Forgot your password? <a href="/passwordReset" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.</p>
-        <p class="mt-2 text-sm">Don't have an account? <a href="/signUp" class="font-medium !text-amber-600 dark:!text-amber-500">Register here</a>.</p>
+        <p class="mt-2 text-sm">Already have an account? <a href="/signIn" class="font-medium !text-amber-600 dark:!text-amber-500">Sign in here</a>.</p>
     {/if}
     {#if authType === 'signIn'}
-        <p class="mt-2 text-sm">Already have an account? <a href="/signIn" class="font-medium !text-amber-600 dark:!text-amber-500">Sign in here</a>.</p>
+        <p class="mt-2 text-sm">Forgot your password? <a href="/passwordReset" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.</p>
+        <p class="mt-2 text-sm">Don't have an account? <a href="/signUp" class="font-medium !text-amber-600 dark:!text-amber-500">Register here</a>.</p>
     {/if}
 </div>
 
