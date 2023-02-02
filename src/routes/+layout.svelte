@@ -6,7 +6,7 @@
 
 	// svelte dependencies
 	import { page } from '$app/stores';
-	import { AppShell, AppBar, Divider, LightSwitch, Modal, modalStore } from '@skeletonlabs/skeleton';
+	import { AppShell, AppBar, Divider, LightSwitch, Modal, modalStore, Toast } from '@skeletonlabs/skeleton';
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 
 	// components
@@ -113,6 +113,7 @@
 
     <slot />
 	<AnimatedBackground/>
+	<Toast />
 	<Modal background={'bg-surface-100-800-token'} padding={'p-12'} buttonPositive={'bg-amber-500'} regionFooter={'flex-start'}/>
 
 	<svelte:fragment slot="pageFooter">

@@ -1,11 +1,19 @@
 <script lang="ts">
+    import { goto } from '$app/navigation';
+
     import { supabase } from "$lib/db";
+
+    import { toastStore } from '@skeletonlabs/skeleton';
+    import type { ToastSettings } from "@skeletonlabs/skeleton";
     
     export let authType: string;
+
     let authForm: any;
+
     let labelClasses = 'block mb-2 text-sm font-medium dark:text-white';
     let inputClasses = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-surface-700 dark:border-stone-800 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500';
 
+    console.log(authType);
     switch(authType) {
         case 'signUp':
             authForm = { 
@@ -33,7 +41,8 @@
                 formData: {
                     recoveryEmail: ''
                 }
-            }
+            };
+            break;
         case 'passwordReset':
             authForm = {
                 formTitle: 'Reset your password',
@@ -41,12 +50,32 @@
                     password: '',
                     passwordConfirmation: ''
                 }
-            }
+            };
+            break;
         default:
-            console.error('Authentication type not recognized.');
+            console.error('Authentication type not recognized: ', authForm);
             break;
     }
   
+    function triggerToast(message: string, toastType: 'primary' | 'secondary' | 'tertiary' | 'warning' | 'success' | 'error') {
+        // error messages should persist
+        let autoHide: boolean = toastType === 'error' ? false : true;
+        const t: ToastSettings = {
+            message: message,
+            // Optional: Presets for primary | secondary | tertiary | warning
+            preset: toastType,
+            // Optional: The auto-hide settings
+            autohide: autoHide,
+            timeout: 5000,
+            // Optional: Adds a custom action button
+            // action: {
+            //     label: 'Greeting',
+            //     response: () => alert('Hello, Skeleton')
+            // }
+        };
+        toastStore.trigger(t);
+    }
+
     async function signIn() {
         const { data, error } = await supabase.auth.signInWithPassword({
             email: authForm.formData.email,
@@ -55,8 +84,11 @@
     
         if (error) {
             console.error(error);
+            triggerToast('Invalid credentials, please ensure you have the correct credentials.', "error");
         } else {
             console.log(data);
+            triggerToast('Sign in successful!', "success");
+            goto('/');
         }
     }
 
@@ -70,13 +102,45 @@
 
         if (error) {
             console.error(error);
+            triggerToast('Sign up could not be completed, please try again later.', "error");
         } else {
             console.log(data);
+            triggerToast('Sign up process complete! Please check your email.', "success");
+            // send us off to the home page - todo
+            goto(`/`);
         }
     }
 
     async function sendRecoveryEmail() {
-        console.log("to do");
+        console.log('sendRecoveryEmail (Authentication.svelte): recoveryEmail: ', authForm.formData.recoveryEmail);
+        const { data, error } = await supabase.auth.resetPasswordForEmail(authForm.formData.recoveryEmail, {
+            // at the moment, I don't want to redirect anywhere
+            redirectTo: '{ .ConfirmationURL/passwordReset }'
+        });
+
+        if (error) {
+            console.error(error);
+            triggerToast('Recovery email could not be sent, please try again later.', "error");
+        } else {
+            console.log(data);
+            triggerToast('Recovery email sent! Please check your email.', "success");
+        }
+    }
+
+    async function resetPassword() {
+        console.log('resetPassword() (Authentication.svelte): newPassword: ', authForm.formData.password)
+        const { data, error } = await supabase.auth.updateUser({
+            password: authForm.formData.password
+        });
+
+        if (error) {
+            console.error(error);
+            triggerToast('Password could not be reset, please try again', "error");
+        } else {
+            console.log(data);
+            triggerToast('Password successfully reset!', "success");
+            goto('/signIn');
+        }
     }
     
     function submit() {
@@ -89,6 +153,9 @@
                 break;
             case 'passwordRecovery':
                 sendRecoveryEmail();
+                break;
+            case 'passwordReset':
+                resetPassword();
                 break;
             default:
                 console.error('Form submission not recognized due to unrecognized authentication type.');
@@ -144,7 +211,17 @@
         {#if authType === 'passwordRecovery'}
             <div class="mb-6">
                 <label for="email" class={labelClasses}>Please enter your email address, we'll use this to send you a recovery email.</label>
-                <input type="email" id="email" class={inputClasses} placeholder="name@ecommerce.com" required>
+                <input type="email" id="email" bind:value={authForm.formData.recoveryEmail} class={inputClasses} required>
+            </div>
+        {/if}
+        {#if authType === 'passwordReset'}
+            <div class="mb-6">
+                <label for="password" class={labelClasses}>Please enter your new password</label>
+                <input bind:value={authForm.formData.password} type="password" id="password" class={inputClasses} required>
+            </div>
+            <div class="mb-6">
+                <label for="confirm" class={labelClasses}>Please confirm your new password</label>
+                <input bind:value={authForm.formData.passwordConfirmation} type="password" id="confirm" class={inputClasses} required>
             </div>
         {/if}
         <button type="submit" class="btn btn-sm bg-amber-500 hover:bg-amber-600 focus:ring-4 
@@ -158,7 +235,7 @@
         <p class="mt-2 text-sm">Already have an account? <a href="/signIn" class="font-medium !text-amber-600 dark:!text-amber-500">Sign in here</a>.</p>
     {/if}
     {#if authType === 'signIn'}
-        <p class="mt-2 text-sm">Forgot your password? <a href="/passwordReset" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.</p>
+        <p class="mt-2 text-sm">Forgot your password? <a href="/passwordRecovery" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.</p>
         <p class="mt-2 text-sm">Don't have an account? <a href="/signUp" class="font-medium !text-amber-600 dark:!text-amber-500">Register here</a>.</p>
     {/if}
 </div>

@@ -2,5 +2,5 @@
 	import Authentication from '$lib/components/Authentication.svelte';
 </script>
 
-<Authentication authType="passwordReset"></Authentication>
+<Authentication authType="passwordRecovery"></Authentication>
 
