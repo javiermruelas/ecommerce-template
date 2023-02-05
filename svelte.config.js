@@ -15,7 +15,10 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			'$lib':'src/lib',
-			'$components':'src/lib/components'
+			'$components':'src/lib/components',
+			'$types':'src/lib/types',
+			'$interfaces':'src/lib/interfaces',
+			'$classes':'src/lib/classes'
 		}
 	}
 };
