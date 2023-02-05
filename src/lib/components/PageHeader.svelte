@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
     import { GradientHeading } from '@skeletonlabs/skeleton';
     import { page } from '$app/stores';
 
