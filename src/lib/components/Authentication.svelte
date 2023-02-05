@@ -1,17 +1,17 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
+    import type { Auth, AuthForm } from "$types/auth";
 
     import { supabase } from "$lib/db";
 
     import { toastStore } from '@skeletonlabs/skeleton';
     import type { ToastSettings } from "@skeletonlabs/skeleton";
-    
-    export let authType: string;
 
-    let authForm: any;
+    export let authType: Auth;
+    let authForm: AuthForm;
 
-    let labelClasses = 'block mb-2 text-sm font-medium dark:text-white';
-    let inputClasses = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-surface-700 dark:border-stone-800 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500';
+    let labelClasses: string = 'block mb-2 text-sm font-medium dark:text-white';
+    let inputClasses: string = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-surface-700 dark:border-stone-800 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500';
 
     console.log(authType);
     switch(authType) {
@@ -53,7 +53,7 @@
             };
             break;
         default:
-            console.error('Authentication type not recognized: ', authForm);
+            console.error('Authentication type not recognized: ', authType);
             break;
     }
   
@@ -78,8 +78,8 @@
 
     async function signIn() {
         const { data, error } = await supabase.auth.signInWithPassword({
-            email: authForm.formData.email,
-            password: authForm.formData.password,
+            email: authForm.formData.email || '',
+            password: authForm.formData.password || '',
         });
     
         if (error) {
@@ -96,8 +96,8 @@
         const { data, error } = await supabase.auth.signUp({
             // need to include logic to store user's first name
             // name: authForm.formData.name,
-            email: authForm.formData.email,
-            password: authForm.formData.password
+            email: authForm.formData.email || '',
+            password: authForm.formData.password || ''
         });
 
         if (error) {
@@ -113,7 +113,7 @@
 
     async function sendRecoveryEmail() {
         console.log('sendRecoveryEmail (Authentication.svelte): recoveryEmail: ', authForm.formData.recoveryEmail);
-        const { data, error } = await supabase.auth.resetPasswordForEmail(authForm.formData.recoveryEmail, {
+        const { data, error } = await supabase.auth.resetPasswordForEmail(authForm.formData.recoveryEmail || '', {
             // at the moment, I don't want to redirect anywhere
             redirectTo: '{ .ConfirmationURL/passwordReset }'
         });
@@ -130,7 +130,7 @@
     async function resetPassword() {
         console.log('resetPassword() (Authentication.svelte): newPassword: ', authForm.formData.password)
         const { data, error } = await supabase.auth.updateUser({
-            password: authForm.formData.password
+            password: authForm.formData.password || ''
         });
 
         if (error) {
@@ -158,7 +158,7 @@
                 resetPassword();
                 break;
             default:
-                console.error('Form submission not recognized due to unrecognized authentication type.');
+                console.error('Form submission not recognized due to unrecognized authentication type: ', authType);
                 break;
         }
     }
