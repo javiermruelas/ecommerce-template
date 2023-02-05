@@ -164,10 +164,10 @@
     }
 </script>
   
-<div class="card w-1/2 mx-auto my-8 p-24 space-y-8">
+<div id="auth" class="card w-1/2 mx-auto my-8 p-24 space-y-8">
     <pre>{JSON.stringify(authForm.formData, null, 2)}</pre>
-    <h1>{authForm.formTitle}</h1>
-    <form on:submit|preventDefault={submit}>
+    <h1 id="auth-title">{authForm.formTitle}</h1>
+    <form id="auth-form" on:submit|preventDefault={submit}>
         {#if authType === 'signUp'}
             <div class="mb-6">
                 <label for="name" class={labelClasses}>Name</label>
@@ -224,7 +224,7 @@
                 <input bind:value={authForm.formData.passwordConfirmation} type="password" id="confirm" class={inputClasses} required>
             </div>
         {/if}
-        <button type="submit" class="btn btn-sm bg-amber-500 hover:bg-amber-600 focus:ring-4 
+        <button id="auth-submit" type="submit" class="btn btn-sm bg-amber-500 hover:bg-amber-600 focus:ring-4 
         focus:outline-none focus:ring-amber-300 font-medium text-sm w-full sm:w-auto px-5 py-2.5
         text-center dark:bg-amber-500 dark:hover:bg-amber-400 dark:focus:ring-amber-600">
         Submit
@@ -232,11 +232,11 @@
     </form>
     <hr />
     {#if authType === 'signUp'}
-        <p class="mt-2 text-sm">Already have an account? <a href="/signIn" class="font-medium !text-amber-600 dark:!text-amber-500">Sign in here</a>.</p>
+        <p id="sign-in" class="mt-2 text-sm">Already have an account? <a href="/signIn" class="font-medium !text-amber-600 dark:!text-amber-500">Sign in here</a>.</p>
     {/if}
     {#if authType === 'signIn'}
-        <p class="mt-2 text-sm">Forgot your password? <a href="/passwordRecovery" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.</p>
-        <p class="mt-2 text-sm">Don't have an account? <a href="/signUp" class="font-medium !text-amber-600 dark:!text-amber-500">Register here</a>.</p>
+        <p id="password-recovery" class="mt-2 text-sm">Forgot your password? <a href="/passwordRecovery" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.</p>
+        <p id="sign-up" class="mt-2 text-sm">Don't have an account? <a href="/signUp" class="font-medium !text-amber-600 dark:!text-amber-500">Register here</a>.</p>
     {/if}
 </div>
 
