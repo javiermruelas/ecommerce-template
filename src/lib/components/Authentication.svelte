@@ -104,13 +104,15 @@
         </button>
     </form>
     <hr />
-    {#if authType === 'signUp'}
+    <div id="form-extras">
+        {#if authType === 'signUp'}
         <p id="sign-in" class="mt-2 text-sm">Already have an account? <a href="/signIn" class="font-medium !text-amber-600 dark:!text-amber-500">Sign in here</a>.</p>
-    {/if}
-    {#if authType === 'signIn'}
-        <p id="password-recovery" class="mt-2 text-sm">Forgot your password? <a href="/passwordRecovery" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.</p>
-        <p id="sign-up" class="mt-2 text-sm">Don't have an account? <a href="/signUp" class="font-medium !text-amber-600 dark:!text-amber-500">Register here</a>.</p>
-    {/if}
+        {/if}
+        {#if authType === 'signIn'}
+            <p id="password-recovery" class="mt-2 text-sm">Forgot your password? <a href="/passwordRecovery" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.</p>
+            <p id="sign-up" class="mt-2 text-sm">Don't have an account? <a href="/signUp" class="font-medium !text-amber-600 dark:!text-amber-500">Register here</a>.</p>
+        {/if}
+    </div>
 </div>
 
 <style>
