@@ -103,8 +103,10 @@
         Submit
         </button>
     </form>
-    <hr />
     <div id="form-extras">
+        {#if authType === 'signUp' || authType === 'signIn'}
+        <hr />
+        {/if}
         {#if authType === 'signUp'}
         <p id="sign-in" class="mt-2 text-sm">Already have an account? <a href="/signIn" class="font-medium !text-amber-600 dark:!text-amber-500">Sign in here</a>.</p>
         {/if}
