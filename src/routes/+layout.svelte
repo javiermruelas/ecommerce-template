@@ -10,8 +10,8 @@
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 
 	// components
-	import AnimatedBackground from '$lib/components/AnimatedBackground.svelte';
-	import ContactModal from "$lib/components/ContactModal.svelte";
+	import AnimatedBackground from '$components/AnimatedBackground.svelte';
+	import ContactModal from "$components/ContactModal.svelte";
 
 	// supabase dependencies
 	import { supabase } from '$lib/db';
