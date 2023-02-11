@@ -85,6 +85,17 @@ export class AuthHelpers {
     }
 
     /**
+     * This method will send a Supabase API call out to sign the user out.
+     */
+	public static async signOut() {
+		const { error } = await supabase.auth.signOut();
+
+		if (error) {
+			console.log(error);
+		}
+	}
+
+    /**
      * This method will send a Supabase API call out to sign the user up.
      * @param {string} email 
      * @param {string} password 

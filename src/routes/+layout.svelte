@@ -18,7 +18,9 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 
-	// auth helper functionality
+	// auth dependencies
+    import { AuthHelpers } from "$lib/authHelpers";
+
 	onMount(() => {
 		const {
 			data: { subscription },
@@ -32,14 +34,18 @@
 	});
 
 	/**
-     * This method will send a Supabase API call out to sign the user out.
+     * This function will trigger the Skeleton UI modal.
      */
-	async function signOut() {
-		const { error } = await supabase.auth.signOut();
-
-		if (error) {
-			console.log(error);
-		}
+	function triggerModal(): void {
+		const modalComponent: ModalComponent = {
+			ref: ContactModal
+		};
+		console.log("triggerModal(): ", modalComponent);
+		const d: ModalSettings = {
+			type: 'component',
+			component: modalComponent
+		};
+		modalStore.trigger(d);
 	}
 
 	// handles text decoration in nav
@@ -47,19 +53,6 @@
     $: pageName = pathName.substring(pathName.lastIndexOf('/') + 1);
     $: pageTitle = pageName.length > 0 ? pageName : "home";
 	let navClasses = 'underline active';
-
-	// handles modal
-	function triggerModal(): void {
-		const modalComponent: ModalComponent = {
-			ref: ContactModal
-		};
-		console.log(modalComponent);
-		const d: ModalSettings = {
-			type: 'component',
-			component: modalComponent
-		};
-		modalStore.trigger(d);
-	}
 </script>
 
 <AppShell>
@@ -107,7 +100,7 @@
 				{#if !$page.data.session}
 					<a class="btn bg-primary-500 btn-base text-white" href="/signIn">Sign In</a>
 				{:else}
-					<button class="btn bg-primary-500 btn-base text-white" on:click={signOut}>Sign Out</button>
+					<button class="btn bg-primary-500 btn-base text-white" on:click={AuthHelpers.signOut}>Sign Out</button>
 				{/if}
 			</svelte:fragment>
 		</AppBar>
