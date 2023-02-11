@@ -21,6 +21,7 @@
 	// auth dependencies
     import { AuthHelpers } from "$lib/authHelpers";
 
+	// svelte-supabase auth helper
 	onMount(() => {
 		const {
 			data: { subscription },
