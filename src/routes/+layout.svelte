@@ -10,8 +10,8 @@
 	import type { ModalSettings, ModalComponent } from '@skeletonlabs/skeleton';
 
 	// components
-	import AnimatedBackground from '$components/AnimatedBackground.svelte';
-	import ContactModal from "$components/ContactModal.svelte";
+	import AnimatedBackground from '$lib/components/common/AnimatedBackground.svelte';
+	import ContactModal from "$lib/components/common/ContactModal.svelte";
 
 	// supabase dependencies
 	import { supabase } from '$lib/db';
@@ -31,6 +31,9 @@
 		}
 	});
 
+	/**
+     * This method will send a Supabase API call out to sign the user out.
+     */
 	async function signOut() {
 		const { error } = await supabase.auth.signOut();
 
@@ -57,7 +60,6 @@
 		};
 		modalStore.trigger(d);
 	}
-
 </script>
 
 <AppShell>

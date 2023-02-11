@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Auth, AuthForm } from "$types/auth";
-    import { AuthHelpers } from "$lib/authHelpers";
+    import { AuthHelpers } from "$lib/components/authentication/authHelpers";
 
     export let authType: Auth;
     let authForm: AuthForm = AuthHelpers.generateAuthForm(authType);

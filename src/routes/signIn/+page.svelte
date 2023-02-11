@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Authentication from '$components/Authentication.svelte';
+	import Authentication from '$lib/components/authentication/Authentication.svelte';
 </script>
 
 <Authentication authType="signIn"></Authentication>
