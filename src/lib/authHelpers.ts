@@ -57,7 +57,7 @@ export class AuthHelpers {
                 authForm = {
                     formTitle: 'Unrecognized Authentication',
                     formData: {}
-                }
+                };
                 break;
         }
         return authForm;
