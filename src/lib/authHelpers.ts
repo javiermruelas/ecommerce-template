@@ -1,4 +1,4 @@
-import type { Auth, AuthForm, Toast } from "$types/auth";
+import type { Auth, AuthForm, AuthFeedback, Toast } from "$types/auth";
 
 import { goto } from '$app/navigation';
 import { supabase } from "$lib/db";
@@ -6,10 +6,12 @@ import { supabase } from "$lib/db";
 import { toastStore } from '@skeletonlabs/skeleton';
 import type { ToastSettings } from "@skeletonlabs/skeleton";
 
+// import { z } from "zod";
+
 export class AuthHelpers {
     /**
      * This method is first called in Authentication.svelte to initiliaze form data.
-     * @param authType 
+     * @param {Auth} authType 
      * @returns {AuthForm} authForm
      */
     public static generateAuthForm(authType: Auth): AuthForm {
@@ -39,7 +41,7 @@ export class AuthHelpers {
                 authForm = {
                     formTitle: 'Recover your email',
                     formData: {
-                        recoveryEmail: ''
+                        email: ''
                     }
                 };
                 break;
@@ -61,6 +63,73 @@ export class AuthHelpers {
                 break;
         }
         return authForm;
+    }
+
+    /**
+     * This method is first called in Authentication.svelte to initiliaze form data feedback that will handle UI interactions between the user and the auth form.
+     * @param {Auth} authType 
+     * @returns {AuthFeedback} authFeedback
+     */
+    public static generateAuthFeedback(authType: Auth): AuthFeedback {
+        let authFeedback;
+        switch(authType) {
+            case 'signUp':
+                authFeedback = {
+                    nameFeedback: {
+                        message: '',
+                        visited: false
+                    },
+                    emailFeedback: {
+                        message: '',
+                        visited: false
+                    },
+                    passwordFeedback: {
+                        message: '',
+                        visited: false
+                    },
+                    passwordConfirmationFeedback: {
+                        message: '',
+                        visited: false
+                    }
+                }
+                break;
+            case 'signIn':
+                authFeedback = {
+                    emailFeedback: {
+                        message: '',
+                        visited: false
+                    },
+                    passwordFeedback: {
+                        message: '',
+                        visited: false
+                    }
+                }
+                break;
+            case 'passwordRecovery':
+                authFeedback = {
+                    emailFeedback: {
+                        message: '',
+                        visited: false
+                    }
+                }
+                break;
+            case 'passwordReset':
+                authFeedback = {
+                    passwordFeedback: {
+                        message: '',
+                        visited: false
+                    },
+                    passwordConfirmationFeedback: {
+                        message: '',
+                        visited: false
+                    }
+                }
+                break;
+            default:
+                authFeedback = {}
+                break;
+        }
+        return authFeedback;
     }
     
     /**
