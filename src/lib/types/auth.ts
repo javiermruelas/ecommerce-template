@@ -7,8 +7,20 @@ export type AuthForm = {
     formData: {
         name?: string,
         email?: string,
-        recoveryEmail?: string,
         password?: string,
         passwordConfirmation?: string
     }
 }
+
+export type Feedback = {
+    message: string,
+    visited: boolean
+}
+
+export type AuthFeedback = {
+    nameFeedback?: Feedback,
+    emailFeedback?: Feedback,
+    passwordFeedback?: Feedback,
+    passwordConfirmationFeedback?: Feedback
+}
+
