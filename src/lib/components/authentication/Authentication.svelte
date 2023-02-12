@@ -11,10 +11,10 @@
     // these helper variables will be filled in by zod
     let authFeedback: AuthFeedback = AuthHelpers.generateAuthFeedback(authType);
     // is the field active ? if so, is the feedback active? if so has it been visited (if not visited then form has not been interacted with)? if so is there an error message (once interacted with I will show an error if empty as well so something valid has to be here)? 
-    $: nameFieldValid = !authForm.formData.name ? false : !authFeedback.nameFeedback ?  false : !authFeedback.nameFeedback.visited ? false : !authFeedback.nameFeedback.message ? false : true;
-    $: emailFieldValid = !authForm.formData.email ? false : !authFeedback.emailFeedback ?  false : !authFeedback.emailFeedback.visited ? false : !authFeedback.emailFeedback.message ? false : true;
-    $: passwordFieldValid = !authForm.formData.password ? false : !authFeedback.passwordFeedback ?  false : !authFeedback.passwordFeedback.visited ? false : !authFeedback.passwordFeedback.message ? false : true;
-    $: passwordConfirmationFieldValid = !authForm.formData.passwordConfirmation ? false : !authFeedback.passwordConfirmationFeedback ?  false : !authFeedback.passwordConfirmationFeedback.visited ? false : !authFeedback.passwordConfirmationFeedback.message ? false : true;
+    $: nameFieldValid = !authForm.formData.name ? false : !authFeedback.nameFeedback ? false : !authFeedback.nameFeedback.visited ? false : !authFeedback.nameFeedback.message ? false : true;
+    $: emailFieldValid = !authForm.formData.email ? false : !authFeedback.emailFeedback ? false : !authFeedback.emailFeedback.visited ? false : !authFeedback.emailFeedback.message ? false : true;
+    $: passwordFieldValid = !authForm.formData.password ? false : !authFeedback.passwordFeedback ? false : !authFeedback.passwordFeedback.visited ? false : !authFeedback.passwordFeedback.message ? false : true;
+    $: passwordConfirmationFieldValid = !authForm.formData.passwordConfirmation ? false : !authFeedback.passwordConfirmationFeedback ? false : !authFeedback.passwordConfirmationFeedback.visited ? false : !authFeedback.passwordConfirmationFeedback.message ? false : true;
     $: formComplete = nameFieldValid && emailFieldValid && passwordFieldValid && passwordConfirmationFieldValid;
     
 
