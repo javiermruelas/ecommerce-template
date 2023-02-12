@@ -6,8 +6,6 @@ import { supabase } from "$lib/db";
 import { toastStore } from '@skeletonlabs/skeleton';
 import type { ToastSettings } from "@skeletonlabs/skeleton";
 
-// import { z } from "zod";
-
 export class AuthHelpers {
     /**
      * This method is first called in Authentication.svelte to initiliaze form data.
