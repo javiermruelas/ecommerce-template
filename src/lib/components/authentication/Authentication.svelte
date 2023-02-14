@@ -15,61 +15,79 @@
     // this is also how we'll know if the form has been interacted with as this would be empty otherwise
     let lastActiveField: string = '';
 
-    // these reactive variables will keep track of our state and will be updated in real time based on zod validation
-    // has the form has not been interacted with)? if so is there an error message (once interacted with I will show an error if empty as well so something valid has to be here)
-    $: formActive = lastActiveField === '' ? false : true;
-    $: nameFieldValid = formActive ? false : authFeedback.nameFeedback === '' ? false : true;
-    $: emailFieldValid = formActive ? false : authFeedback.emailFeedback === '' ? false : true;
-    $: passwordFieldValid = formActive ? false : authFeedback.passwordFeedback === '' ? false : true;
-    $: passwordConfirmationFieldValid = formActive ? false : authFeedback.passwordConfirmationFeedback === '' ? false : true;
-    $: signUpFormComplete = nameFieldValid && emailFieldValid && passwordFieldValid && passwordConfirmationFieldValid;
-    $: signInFormComplete = emailFieldValid && passwordFieldValid;
-    $: passwordRecoveryFormComplete = emailFieldValid;
-    $: passwordResetFormComplete = passwordFieldValid && passwordConfirmationFieldValid;
-    $: formComplete = authType === 'signUp' && signUpFormComplete || authType === 'signIn' && signInFormComplete || authType === 'passwordRecovery' && passwordRecoveryFormComplete || authType === 'passwordReset' && passwordResetFormComplete;
-
     function parseForm(): void {
-        console.log("authForm: ", JSON.stringify(authForm, null, 4));
+        // console.log("authForm: ", JSON.stringify(authForm, null, 4));
     
         // zod schema defined in auth.ts
         const result = authFormSchema.safeParse(authForm);
-        console.log("result:", result);
+        // console.log("result:", result);
         if (!result.success) {
             //handle error
             // console.error(result.error);
             // console.log(result.error.issues)
-            switch(lastActiveField) {
-                case 'name':
-                    if (result.error.issues[0]) {
-                        authFeedback.nameFeedback = result.error.issues[0].message;
+
+            const allTopics: string[] = ['name', 'email', 'password', 'passwordConfirmation'];
+            let topicsWithErrors: string [] = [];
+            // ensure zod validation issues are updated in UI
+            result.error.issues.forEach((issue) => {
+                let currentIssueTopic = issue.path[1];
+                if(currentIssueTopic) topicsWithErrors.push(typeof currentIssueTopic === 'string' ? currentIssueTopic : '');
+                switch(currentIssueTopic) {
+                    case 'name':
+                        authFeedback.nameFeedback = issue.message;
+                        break;
+                    case 'email':
+                        authFeedback.emailFeedback = issue.message;
+                        break;
+                    case 'password':
+                        authFeedback.passwordFeedback = issue.message;
+                        break;
+                    case 'passwordConfirmation':
+                        authFeedback.passwordConfirmationFeedback = issue.message;
+                        break;
+                    default:
+                        break;
+                }
+                authFeedback = authFeedback;
+            });
+
+            // if topic didn't have error anymore clear it
+            allTopics.forEach((topic) => {
+                if (!topicsWithErrors.includes(topic)) {
+                    switch(topic) {
+                        case 'name':
+                            authFeedback.nameFeedback = '';
+                            break;
+                        case 'email':
+                            authFeedback.emailFeedback = '';
+                            break;
+                        case 'password':
+                            authFeedback.passwordFeedback = '';
+                            break;
+                        case 'passwordConfirmation':
+                            authFeedback.passwordConfirmationFeedback = '';
+                            break;
+                        default:
+                            break;
                     }
-                    break;
-                case 'email':
-                    if (result.error.issues[1]) {
-                        authFeedback.emailFeedback = result.error.issues[1].message;
-                    }
-                    break;
-                case 'password':
-                    if (result.error.issues[2]) {
-                        authFeedback.passwordFeedback = result.error.issues[2].message;
-                    }
-                    break;
-                case 'passwordConfirmation':
-                    if (result.error.issues[3]) {
-                        authFeedback.nameFeedback = result.error.issues[3].message;
-                    }
-                    break;
-                default:
-                    break;
-            }
+                    authFeedback = authFeedback;
+                }
+            });
         } else {
             //handle success
-            console.log(result.success);
+            authFeedback.nameFeedback = '';
+            authFeedback.emailFeedback = '';
+            authFeedback.passwordFeedback = '';
+            authFeedback.passwordConfirmationFeedback = '';
+            authFeedback = authFeedback;
+
+            // console.log("formActive: ", formActive);
+            // console.log("emailFieldValid: ", emailFieldValid);
+            // console.log("passwordFieldValid: ", passwordFieldValid);
+            // console.log("signInFormComplete?", signInFormComplete);
+            // console.log("authType = signIn: ", authType === 'signIn');
+            // console.log("formComplete: ", formComplete);
         }
-        /*for (const property in authForm.formData) {
-            // I need to explicitly tell typescript that 'property' is a KeyOf the TypeOf that object
-            console.log(`${property}: ${authForm.formData[property as keyof typeof authForm.formData]}`);
-        }*/
     }
     
     /**
@@ -108,7 +126,7 @@
      * @param {string} property
      */
     function setInputWatcher(inputElement: HTMLElement, property: string):void {
-        inputElement.onkeydown = () => {
+        inputElement.onkeyup = () => {
             lastActiveField = property;
             parseForm();
         }
@@ -137,6 +155,19 @@
     onMount(() => {
         setAllInputWatchers();
     });
+
+    // these reactive variables will keep track of our state and will be updated in real time based on zod validation
+    // has the form has not been interacted with)? if so is there an error message (once interacted with I will show an error if empty as well so something valid has to be here)
+    $: formActive = lastActiveField === '' ? false : true;
+    $: nameFieldValid = !formActive ? false : authFeedback.nameFeedback !== '' ? false : true;
+    $: emailFieldValid = !formActive ? false : authFeedback.emailFeedback !== '' ? false : true;
+    $: passwordFieldValid = !formActive ? false : authFeedback.passwordFeedback !== '' ? false : true;
+    $: passwordConfirmationFieldValid = !formActive ? false : authFeedback.passwordConfirmationFeedback !== '' ? false : true;
+    $: signUpFormComplete = nameFieldValid && emailFieldValid && passwordFieldValid && passwordConfirmationFieldValid;
+    $: signInFormComplete = emailFieldValid && passwordFieldValid;
+    $: passwordRecoveryFormComplete = emailFieldValid;
+    $: passwordResetFormComplete = passwordFieldValid && passwordConfirmationFieldValid;
+    $: formComplete = authType === 'signUp' && signUpFormComplete || authType === 'signIn' && signInFormComplete || authType === 'passwordRecovery' && passwordRecoveryFormComplete || authType === 'passwordReset' && passwordResetFormComplete;
 </script>
   
 <div id="auth" class="card w-1/2 mx-auto my-8 p-24 space-y-8">
@@ -147,46 +178,34 @@
             <div class="mb-6">
                 <label for="name" class={labelClasses}>Name</label>
                 <input bind:value={authForm.formData.name} type="text" id="name" class={inputClasses} required>
-                {#if authFeedback.nameFeedback}
-                    <InputFeedback feedback={authFeedback.nameFeedback}></InputFeedback>
-                {/if}
+                <InputFeedback active={formActive} feedback={authFeedback.nameFeedback || ''}></InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="email" class={labelClasses}>Email</label>
                 <input bind:value={authForm.formData.email} type="email" id="email" class={inputClasses} required>
-                {#if authFeedback.emailFeedback}
-                    <InputFeedback feedback={authFeedback.emailFeedback}></InputFeedback>
-                {/if}
+                <InputFeedback active={formActive} feedback={authFeedback.emailFeedback || ''}></InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="password" class={labelClasses}>Please enter your password</label>
                 <input bind:value={authForm.formData.password} type="password" id="password" class={inputClasses} required>
-                {#if authFeedback.passwordFeedback}
-                    <InputFeedback feedback={authFeedback.passwordFeedback}></InputFeedback>
-                {/if}
+                <InputFeedback active={formActive} feedback={authFeedback.passwordFeedback || ''}></InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="confirm" class={labelClasses}>Please confirm your password</label>
                 <input bind:value={authForm.formData.passwordConfirmation} type="password" id="confirm" class={inputClasses} required>
-                {#if authFeedback.passwordConfirmationFeedback}
-                    <InputFeedback feedback={authFeedback.passwordConfirmationFeedback}></InputFeedback>
-                {/if}
+                <InputFeedback active={formActive} feedback={authFeedback.passwordConfirmationFeedback || ''}></InputFeedback>
             </div>
         {/if}
         {#if authType === 'signIn'}
             <div class="mb-6">
                 <label for="email" class={labelClasses}>Please enter your email</label>
                 <input bind:value={authForm.formData.email} type="email" id="email" class={inputClasses} required>
-                {#if authFeedback.emailFeedback}
-                    <InputFeedback feedback={authFeedback.emailFeedback}></InputFeedback>
-                {/if}
+                <InputFeedback active={formActive} feedback={authFeedback.emailFeedback || ''}></InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="password" class={labelClasses}>Your password</label>
                 <input bind:value={authForm.formData.password} type="password" id="password" class={inputClasses} required>
-                {#if authFeedback.passwordFeedback}
-                    <InputFeedback feedback={authFeedback.passwordFeedback}></InputFeedback>
-                {/if}
+                <InputFeedback active={formActive} feedback={authFeedback.passwordFeedback || ''}></InputFeedback>
             </div>
             <div class="flex items-start mb-6">
                 <div class="flex items-center h-5">
@@ -205,25 +224,19 @@
             <div class="mb-6">
                 <label for="email" class={labelClasses}>Please enter your email address, we'll use this to send you a recovery email.</label>
                 <input type="email" id="email" bind:value={authForm.formData.email} class={inputClasses} required>
-                {#if authFeedback.emailFeedback}
-                    <InputFeedback feedback={authFeedback.emailFeedback}></InputFeedback>
-                {/if}
+                <InputFeedback active={formActive} feedback={authFeedback.emailFeedback || ''}></InputFeedback>
             </div>
         {/if}
         {#if authType === 'passwordReset'}
             <div class="mb-6">
                 <label for="password" class={labelClasses}>Please enter your new password</label>
                 <input bind:value={authForm.formData.password} type="password" id="password" class={inputClasses} required>
-                {#if authFeedback.passwordFeedback}
-                    <InputFeedback feedback={authFeedback.passwordFeedback}></InputFeedback>
-                {/if}
+                <InputFeedback active={formActive} feedback={authFeedback.passwordFeedback || ''}></InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="confirm" class={labelClasses}>Please confirm your new password</label>
                 <input bind:value={authForm.formData.passwordConfirmation} type="password" id="confirm" class={inputClasses} required>
-                {#if authFeedback.passwordConfirmationFeedback}
-                    <InputFeedback feedback={authFeedback.passwordConfirmationFeedback}></InputFeedback>
-                {/if}
+                <InputFeedback active={formActive} feedback={authFeedback.passwordConfirmationFeedback || ''}></InputFeedback>
             </div>
         {/if}
         <button 
