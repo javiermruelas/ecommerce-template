@@ -29,9 +29,11 @@ export class AuthHelpers {
             case 'signIn':
                 authForm = { 
                     formTitle: 'Sign In',
-                    formData: { 
+                    formData: {
+                        name: 'UNUSED', 
                         email: '', 
-                        password: ''
+                        password: '',
+                        passwordConfirmation: 'UNUSED'
                     }
                 };
                 break;
@@ -39,7 +41,10 @@ export class AuthHelpers {
                 authForm = {
                     formTitle: 'Recover your email',
                     formData: {
-                        email: ''
+                        name: 'UNUSED',
+                        email: '',
+                        password: 'UNUSED',
+                        passwordConfirmation: 'UNUSED'
                     }
                 };
                 break;
@@ -47,6 +52,8 @@ export class AuthHelpers {
                 authForm = {
                     formTitle: 'Reset your password',
                     formData: {
+                        name: 'UNUSED',
+                        email: "UNUSED@unused.com",
                         password: '',
                         passwordConfirmation: ''
                     }
@@ -56,7 +63,12 @@ export class AuthHelpers {
                 console.error('Authentication type not recognized: ', authType);
                 authForm = {
                     formTitle: 'Unrecognized Authentication',
-                    formData: {}
+                    formData: {
+                        name: 'UNUSED',
+                        email: 'UNUSED@unused.com',
+                        password: 'UNUSED',
+                        passwordConfirmation: 'UNUSED'
+                    }
                 };
                 break;
         }
