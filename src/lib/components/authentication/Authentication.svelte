@@ -1,8 +1,9 @@
 <script lang="ts">
-    import type { Auth, AuthForm, AuthFeedback } from "$types/auth";
+    import { type Auth, type AuthForm, type AuthFeedback, authFormSchema } from "$types/auth";
     import { AuthHelpers } from "$lib/authHelpers";
     import InputFeedback from "$lib/components/authentication/InputFeedback.svelte";
 	import { onMount } from "svelte";
+    import { z } from "zod";
 
     // importing the auth type that the page needs
     export let authType: Auth;
@@ -22,33 +23,25 @@
     $: passwordRecoveryFormComplete = authType === 'passwordRecovery' && emailFieldValid;
     $: passwordResetFormComplete = authType === 'passwordReset' && passwordFieldValid && passwordConfirmationFieldValid;
     $: formComplete = signUpFormComplete || signInFormComplete || passwordRecoveryFormComplete || passwordResetFormComplete;
-    
 
-    // sign in and passwordRecovery need minor email validation
-    // name field should be a minimum of two characters and a maximum of 50 characters
-    // email field should be a valid looking email - z.string().email()
-    //
-
-    function parseForm(authForm: AuthForm): void {
+    function parseForm(): void {
         console.log("authForm: ", authForm);
         for (const property in authForm.formData) {
             // I need to explicitly tell typescript that 'property' is a KeyOf the TypeOf that object
             console.log(`${property}: ${authForm.formData[property as keyof typeof authForm.formData]}`);
-
-            switch(property) {
-                case 'name':
-                    break;
-                case 'email':
-                    break;
-                case 'password':
-                    break;
-                case 'passwordConfirmation':
-                    break;
-                default: 
-                    break;
-            }
+        }
+        // zod schema defined in auth.ts
+        const result = authFormSchema.safeParse(authForm.formData);
+        if (!result.success) {
+            //handle error
+            console.log(result.error);
+        } else {
+            //handle success
+            console.log(result.success);
         }
     }
+
+    parseForm();
     
     /**
      * This function is called when our Auth Form is submitted and will call another function
