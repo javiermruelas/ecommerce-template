@@ -3,45 +3,74 @@
     import { AuthHelpers } from "$lib/authHelpers";
     import InputFeedback from "$lib/components/authentication/InputFeedback.svelte";
 	import { onMount } from "svelte";
-    import { z } from "zod";
 
-    // importing the auth type that the page needs
+    // importing the auth type that the page needs (component prop)
     export let authType: Auth;
     // generating an auth form based on the auth type
     let authForm: AuthForm = AuthHelpers.generateAuthForm(authType);
     // these helper variables will be filled in by zod
     let authFeedback: AuthFeedback = AuthHelpers.generateAuthFeedback(authType);
 
+    // this will be used to determine the last active field (what field needs an error message)
+    // this is also how we'll know if the form has been interacted with as this would be empty otherwise
+    let lastActiveField: string = '';
+
     // these reactive variables will keep track of our state and will be updated in real time based on zod validation
-    // is the field active ? if so, is the feedback active? if so has it been visited (if not visited then form has not been interacted with)? if so is there an error message (once interacted with I will show an error if empty as well so something valid has to be here)? 
-    $: nameFieldValid = !authForm.formData.name ? false : !authFeedback.nameFeedback ? false : !authFeedback.nameFeedback.visited ? false : !authFeedback.nameFeedback.message ? false : true;
-    $: emailFieldValid = !authForm.formData.email ? false : !authFeedback.emailFeedback ? false : !authFeedback.emailFeedback.visited ? false : !authFeedback.emailFeedback.message ? false : true;
-    $: passwordFieldValid = !authForm.formData.password ? false : !authFeedback.passwordFeedback ? false : !authFeedback.passwordFeedback.visited ? false : !authFeedback.passwordFeedback.message ? false : true;
-    $: passwordConfirmationFieldValid = !authForm.formData.passwordConfirmation ? false : !authFeedback.passwordConfirmationFeedback ? false : !authFeedback.passwordConfirmationFeedback.visited ? false : !authFeedback.passwordConfirmationFeedback.message ? false : true;
-    $: signUpFormComplete = authType === 'signUp' && nameFieldValid && emailFieldValid && passwordFieldValid && passwordConfirmationFieldValid;
-    $: signInFormComplete = authType === 'signIn' && emailFieldValid && passwordFieldValid;
-    $: passwordRecoveryFormComplete = authType === 'passwordRecovery' && emailFieldValid;
-    $: passwordResetFormComplete = authType === 'passwordReset' && passwordFieldValid && passwordConfirmationFieldValid;
-    $: formComplete = signUpFormComplete || signInFormComplete || passwordRecoveryFormComplete || passwordResetFormComplete;
+    // has the form has not been interacted with)? if so is there an error message (once interacted with I will show an error if empty as well so something valid has to be here)
+    $: formActive = lastActiveField === '' ? false : true;
+    $: nameFieldValid = formActive ? false : authFeedback.nameFeedback === '' ? false : true;
+    $: emailFieldValid = formActive ? false : authFeedback.emailFeedback === '' ? false : true;
+    $: passwordFieldValid = formActive ? false : authFeedback.passwordFeedback === '' ? false : true;
+    $: passwordConfirmationFieldValid = formActive ? false : authFeedback.passwordConfirmationFeedback === '' ? false : true;
+    $: signUpFormComplete = nameFieldValid && emailFieldValid && passwordFieldValid && passwordConfirmationFieldValid;
+    $: signInFormComplete = emailFieldValid && passwordFieldValid;
+    $: passwordRecoveryFormComplete = emailFieldValid;
+    $: passwordResetFormComplete = passwordFieldValid && passwordConfirmationFieldValid;
+    $: formComplete = authType === 'signUp' && signUpFormComplete || authType === 'signIn' && signInFormComplete || authType === 'passwordRecovery' && passwordRecoveryFormComplete || authType === 'passwordReset' && passwordResetFormComplete;
 
     function parseForm(): void {
-        console.log("authForm: ", authForm);
-        for (const property in authForm.formData) {
-            // I need to explicitly tell typescript that 'property' is a KeyOf the TypeOf that object
-            console.log(`${property}: ${authForm.formData[property as keyof typeof authForm.formData]}`);
-        }
+        console.log("authForm: ", JSON.stringify(authForm, null, 4));
+    
         // zod schema defined in auth.ts
-        const result = authFormSchema.safeParse(authForm.formData);
+        const result = authFormSchema.safeParse(authForm);
+        console.log("result:", result);
         if (!result.success) {
             //handle error
-            console.log(result.error);
+            // console.error(result.error);
+            // console.log(result.error.issues)
+            switch(lastActiveField) {
+                case 'name':
+                    if (result.error.issues[0]) {
+                        authFeedback.nameFeedback = result.error.issues[0].message;
+                    }
+                    break;
+                case 'email':
+                    if (result.error.issues[1]) {
+                        authFeedback.emailFeedback = result.error.issues[1].message;
+                    }
+                    break;
+                case 'password':
+                    if (result.error.issues[2]) {
+                        authFeedback.passwordFeedback = result.error.issues[2].message;
+                    }
+                    break;
+                case 'passwordConfirmation':
+                    if (result.error.issues[3]) {
+                        authFeedback.nameFeedback = result.error.issues[3].message;
+                    }
+                    break;
+                default:
+                    break;
+            }
         } else {
             //handle success
             console.log(result.success);
         }
+        /*for (const property in authForm.formData) {
+            // I need to explicitly tell typescript that 'property' is a KeyOf the TypeOf that object
+            console.log(`${property}: ${authForm.formData[property as keyof typeof authForm.formData]}`);
+        }*/
     }
-
-    parseForm();
     
     /**
      * This function is called when our Auth Form is submitted and will call another function
@@ -80,23 +109,8 @@
      */
     function setInputWatcher(inputElement: HTMLElement, property: string):void {
         inputElement.onkeydown = () => {
-            switch(property) {
-                case 'name':
-                    authFeedback.nameFeedback!.visited = true;
-                    break;
-                case 'email':
-                    authFeedback.emailFeedback!.visited = true;
-                    break;
-                case 'password':
-                    authFeedback.passwordFeedback!.visited = true;
-                    break;
-                case 'passwordConfirmation':
-                    authFeedback.passwordConfirmationFeedback!.visited = true;
-                    break;
-                default: 
-                    console.error('Input watcher was unable to set unknown property.')
-                    break;
-            }
+            lastActiveField = property;
+            parseForm();
         }
     }
 
@@ -228,11 +242,20 @@
         <hr />
         {/if}
         {#if authType === 'signUp'}
-        <p id="sign-in" class="mt-2 text-sm">Already have an account? <a href="/signIn" class="font-medium !text-amber-600 dark:!text-amber-500">Sign in here</a>.</p>
+        <p id="sign-in" class="mt-2 text-sm">
+            <span>Already have an account?</span> 
+            <a href="/signIn" class="font-medium !text-amber-600 dark:!text-amber-500">Sign in here</a>.
+        </p>
         {/if}
         {#if authType === 'signIn'}
-            <p id="password-recovery" class="mt-2 text-sm">Forgot your password? <a href="/passwordRecovery" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.</p>
-            <p id="sign-up" class="mt-2 text-sm">Don't have an account? <a href="/signUp" class="font-medium !text-amber-600 dark:!text-amber-500">Register here</a>.</p>
+            <p id="password-recovery" class="mt-2 text-sm">
+                <span>Forgot your password?</span>
+                <a href="/passwordRecovery" class="font-medium !text-amber-600 dark:!text-amber-500">Reset your password here</a>.
+            </p>
+            <p id="sign-up" class="mt-2 text-sm">
+                <span>Don't have an account?</span> 
+                <a href="/signUp" class="font-medium !text-amber-600 dark:!text-amber-500">Register here</a>.
+            </p>
         {/if}
     </div>
 </div>

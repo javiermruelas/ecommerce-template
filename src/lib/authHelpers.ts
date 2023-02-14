@@ -73,58 +73,33 @@ export class AuthHelpers {
         switch(authType) {
             case 'signUp':
                 authFeedback = {
-                    nameFeedback: {
-                        message: '',
-                        visited: false
-                    },
-                    emailFeedback: {
-                        message: '',
-                        visited: false
-                    },
-                    passwordFeedback: {
-                        message: '',
-                        visited: false
-                    },
-                    passwordConfirmationFeedback: {
-                        message: '',
-                        visited: false
-                    }
+                    nameFeedback: '',
+                    emailFeedback: '',
+                    passwordFeedback: '',
+                    passwordConfirmationFeedback: ''
                 }
                 break;
             case 'signIn':
                 authFeedback = {
-                    emailFeedback: {
-                        message: '',
-                        visited: false
-                    },
-                    passwordFeedback: {
-                        message: '',
-                        visited: false
-                    }
+                    emailFeedback: '',
+                    passwordFeedback: ''
                 }
                 break;
             case 'passwordRecovery':
                 authFeedback = {
-                    emailFeedback: {
-                        message: '',
-                        visited: false
-                    }
+                    emailFeedback: ''
                 }
                 break;
             case 'passwordReset':
                 authFeedback = {
-                    passwordFeedback: {
-                        message: '',
-                        visited: false
-                    },
-                    passwordConfirmationFeedback: {
-                        message: '',
-                        visited: false
-                    }
+                    passwordFeedback: '',
+                    passwordConfirmationFeedback: ''
                 }
                 break;
             default:
-                authFeedback = {}
+                authFeedback = {
+                    nameFeedback: ''
+                }
                 break;
         }
         return authFeedback;

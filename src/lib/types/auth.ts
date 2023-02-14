@@ -17,10 +17,7 @@ export const authFormSchema = z.object({
 // "AuthForm" is generated (or inferred) from the Zod schema
 export type AuthForm = z.infer<typeof authFormSchema>;
 
-export type Feedback = {
-    message: string,
-    visited: boolean
-}
+export type Feedback = string;
 
 export type AuthFeedback = {
     nameFeedback?: Feedback,
