@@ -16,22 +16,18 @@
     let lastActiveField: string = '';
 
     function parseForm(): void {
-        // console.log("authForm: ", JSON.stringify(authForm, null, 4));
-    
         // zod schema defined in auth.ts
         const result = authFormSchema.safeParse(authForm);
-        // console.log("result:", result);
+
         if (!result.success) {
             //handle error
-            // console.error(result.error);
-            // console.log(result.error.issues)
 
             const allTopics: string[] = ['name', 'email', 'password', 'passwordConfirmation'];
             let topicsWithErrors: string [] = [];
             // ensure zod validation issues are updated in UI
             result.error.issues.forEach((issue) => {
                 let currentIssueTopic = issue.path[1];
-                if(currentIssueTopic) topicsWithErrors.push(typeof currentIssueTopic === 'string' ? currentIssueTopic : '');
+                if (currentIssueTopic) topicsWithErrors.push(typeof currentIssueTopic === 'string' ? currentIssueTopic : '');
                 switch(currentIssueTopic) {
                     case 'name':
                         authFeedback.nameFeedback = issue.message;
@@ -75,18 +71,12 @@
             });
         } else {
             //handle success
+
             authFeedback.nameFeedback = '';
             authFeedback.emailFeedback = '';
             authFeedback.passwordFeedback = '';
             authFeedback.passwordConfirmationFeedback = '';
             authFeedback = authFeedback;
-
-            // console.log("formActive: ", formActive);
-            // console.log("emailFieldValid: ", emailFieldValid);
-            // console.log("passwordFieldValid: ", passwordFieldValid);
-            // console.log("signInFormComplete?", signInFormComplete);
-            // console.log("authType = signIn: ", authType === 'signIn');
-            // console.log("formComplete: ", formComplete);
         }
     }
     
@@ -157,7 +147,7 @@
     });
 
     // these reactive variables will keep track of our state and will be updated in real time based on zod validation
-    // has the form has not been interacted with)? if so is there an error message (once interacted with I will show an error if empty as well so something valid has to be here)
+    // has the form been interacted with? if so is there an error message (once interacted with I will show an error if empty as well so something valid has to be here)
     $: formActive = lastActiveField === '' ? false : true;
     $: nameFieldValid = !formActive ? false : authFeedback.nameFeedback !== '' ? false : true;
     $: emailFieldValid = !formActive ? false : authFeedback.emailFeedback !== '' ? false : true;
