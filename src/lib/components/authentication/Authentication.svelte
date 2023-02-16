@@ -32,9 +32,13 @@
         // zod schema defined in auth.ts
         const result = authFormSchema.safeParse(authForm);
 
-        if (!result.success) {
-            //handle error
-
+        if (result.success) {
+            authFeedback.nameFeedback = '';
+            authFeedback.emailFeedback = '';
+            authFeedback.passwordFeedback = '';
+            authFeedback.passwordConfirmationFeedback = '';
+            authFeedback = authFeedback;
+        } else {
             const allTopics: string[] = ['name', 'email', 'password', 'passwordConfirmation'];
             let topicsWithErrors: string [] = [];
             // ensure zod validation issues are updated in UI
@@ -82,23 +86,11 @@
                     authFeedback = authFeedback;
                 }
             });
+        } 
 
-            // check if passwords match
-            if (authType === 'signUp') {
-                checkPasswordsMatch();
-            }
-        } else {
-            //handle success
-
-            authFeedback.nameFeedback = '';
-            authFeedback.emailFeedback = '';
-            authFeedback.passwordFeedback = '';
-            authFeedback.passwordConfirmationFeedback = '';
-            authFeedback = authFeedback;
-            // check if passwords match
-            if (authType === 'signUp') {
-                checkPasswordsMatch();
-            }
+        // check if passwords match
+        if (authType === 'signUp') {
+            checkPasswordsMatch();
         }
     }
     
