@@ -15,6 +15,19 @@
     // this is also how we'll know if the form has been interacted with as this would be empty otherwise
     let lastActiveField: string = '';
 
+    function checkPasswordsMatch():void {
+        let password = authForm.formData.password;
+        let passwordConfirmation = authForm.formData.passwordConfirmation;
+        if (passwordConfirmation !== '') {
+            if (password !== passwordConfirmation) {
+                authFeedback.passwordConfirmationFeedback = 'Passwords do not match';
+            } else {
+                authFeedback.passwordConfirmationFeedback = '';
+            }
+            authFeedback = authFeedback;
+        }
+    }
+
     function parseForm(): void {
         // zod schema defined in auth.ts
         const result = authFormSchema.safeParse(authForm);
@@ -69,6 +82,11 @@
                     authFeedback = authFeedback;
                 }
             });
+
+            // check if passwords match
+            if (authType === 'signUp') {
+                checkPasswordsMatch();
+            }
         } else {
             //handle success
 
@@ -77,6 +95,10 @@
             authFeedback.passwordFeedback = '';
             authFeedback.passwordConfirmationFeedback = '';
             authFeedback = authFeedback;
+            // check if passwords match
+            if (authType === 'signUp') {
+                checkPasswordsMatch();
+            }
         }
     }
     
