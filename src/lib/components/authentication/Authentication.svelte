@@ -29,7 +29,6 @@
     }
 
     function parseForm(): void {
-        // zod schema defined in auth.ts
         const result = authFormSchema.safeParse(authForm);
 
         if (result.success) {
@@ -41,48 +40,22 @@
         } else {
             const allTopics: string[] = ['name', 'email', 'password', 'passwordConfirmation'];
             let topicsWithErrors: string [] = [];
-            // ensure zod validation issues are updated in UI
+
+            // if any inputs are problematic update UI to show errors
             result.error.issues.forEach((issue) => {
                 let currentIssueTopic = issue.path[1];
                 if (currentIssueTopic) topicsWithErrors.push(typeof currentIssueTopic === 'string' ? currentIssueTopic : '');
-                switch(currentIssueTopic) {
-                    case 'name':
-                        authFeedback.nameFeedback = issue.message;
-                        break;
-                    case 'email':
-                        authFeedback.emailFeedback = issue.message;
-                        break;
-                    case 'password':
-                        authFeedback.passwordFeedback = issue.message;
-                        break;
-                    case 'passwordConfirmation':
-                        authFeedback.passwordConfirmationFeedback = issue.message;
-                        break;
-                    default:
-                        break;
-                }
+
+                let topicProperty = currentIssueTopic + 'Feedback';
+                authFeedback[topicProperty as keyof AuthFeedback] = issue.message;
                 authFeedback = authFeedback;
             });
 
-            // if topic didn't have error anymore clear it
+            // if any inputs weren't problematic reset them
             allTopics.forEach((topic) => {
                 if (!topicsWithErrors.includes(topic)) {
-                    switch(topic) {
-                        case 'name':
-                            authFeedback.nameFeedback = '';
-                            break;
-                        case 'email':
-                            authFeedback.emailFeedback = '';
-                            break;
-                        case 'password':
-                            authFeedback.passwordFeedback = '';
-                            break;
-                        case 'passwordConfirmation':
-                            authFeedback.passwordConfirmationFeedback = '';
-                            break;
-                        default:
-                            break;
-                    }
+                    let topicProperty = topic + 'Feedback';
+                    authFeedback[topicProperty as keyof AuthFeedback] = '';
                     authFeedback = authFeedback;
                 }
             });
