@@ -62,7 +62,7 @@
         } 
 
         // check if passwords match
-        if (authType === 'signUp') {
+        if (authType === 'signUp' || authType === 'passwordReset') {
             checkPasswordsMatch();
         }
     }
