@@ -181,7 +181,7 @@ export class AuthHelpers {
         console.log('sendRecoveryEmail() => recoveryEmail: ', recoveryEmail);
         const { data, error } = await supabase.auth.resetPasswordForEmail(recoveryEmail, {
             // at the moment, I don't want to redirect anywhere
-            redirectTo: '{ .ConfirmationURL/passwordReset }'
+            redirectTo: 'http://localhost:5173/passwordReset'
         });
     
         if (error) {
@@ -213,7 +213,7 @@ export class AuthHelpers {
         } else {
             console.log(data);
             this.triggerAuthToast('Password successfully reset!', "success");
-            goto('/signIn');
+            goto('/');
         }
     }
 
