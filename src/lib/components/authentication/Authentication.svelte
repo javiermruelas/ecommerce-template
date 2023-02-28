@@ -148,7 +148,7 @@
 </script>
   
 <div id="auth" class="card w-1/2 mx-auto my-8 p-24 space-y-8">
-    <pre>{JSON.stringify(authForm.formData, null, 2)}</pre>
+    <!-- <pre>{JSON.stringify(authForm.formData, null, 2)}</pre> -->
     <h1 id="auth-title">{authForm.formTitle}</h1>
     <form id="auth-form" on:submit|preventDefault={submit}>
         {#if authType === 'signUp'}
