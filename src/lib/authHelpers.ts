@@ -229,11 +229,7 @@ export class AuthHelpers {
             message: message,
             preset: toastType,
             autohide: autoHide,
-            timeout: 5000,
-            action: {
-                label: 'OK',
-                response: () => toastStore.clear()
-            }
+            timeout: 10000
         };
         toastStore.trigger(t);
     }
