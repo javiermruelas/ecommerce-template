@@ -76,7 +76,9 @@ export class AuthHelpers {
     }
 
     /**
-     * This method is first called in Authentication.svelte to initiliaze form data feedback that will handle UI interactions between the user and the auth form.
+     * This method is called in Authentication.svelte to initiliaze form data
+     * feedback that will handle UI interactions between the user and the 
+     * auth form.
      * @param {Auth} authType 
      * @returns {AuthFeedback} authFeedback
      */
@@ -118,7 +120,7 @@ export class AuthHelpers {
     }
     
     /**
-     * This method will send a Supabase API call out to sign the user in.
+     * Uses the Supabase API to sign the user in.
      * @param {string} email
      * @param {string} password 
      */
@@ -139,7 +141,7 @@ export class AuthHelpers {
     }
 
     /**
-     * This method will send a Supabase API call out to sign the user out.
+     * Uses the Supabase API call to sign the user out.
      */
 	public static async signOut() {
 		const { error } = await supabase.auth.signOut();
@@ -150,7 +152,7 @@ export class AuthHelpers {
 	}
 
     /**
-     * This method will send a Supabase API call out to sign the user up.
+     * Uses the Supabase API call to sign the user up.
      * @param {string} email 
      * @param {string} password 
      */
@@ -173,8 +175,8 @@ export class AuthHelpers {
     }
     
     /**
-     * This method will send a Supabase API call out to send a recovery email to the user. The template
-     * that will be sent can be customized on the Supabase client.
+     * Uses the Supabase API to send a recovery email to the user.
+     * The template that will be sent to the user can be customized on the Supabase client.
      * @param {string} recoveryEmail
      */
     public static async sendRecoveryEmail(recoveryEmail: string): Promise<void> {
@@ -194,10 +196,9 @@ export class AuthHelpers {
     }
     
     /**
-     * This method will send a Supabase API call out to update the user's password.
-     * Should only be called at the end of the Password Recovery process.
-     * It will send a status Toast and if the call was successful, it 
-     * will also redirect the user to the home page. 
+     * Uses the Supabase API to update the user's password,
+     * afterwards triggers a toast with the status of the operation.
+     * Note: Should only be called at the end of the Password Recovery process.
      * @async
      * @param {string} password
     */
@@ -209,7 +210,7 @@ export class AuthHelpers {
     
         if (error) {
             console.error(error);
-            this.triggerAuthToast('Password could not be reset, please try again', "error");
+            this.triggerAuthToast('Password could not be reset, please try again.', "error");
         } else {
             console.log(data);
             this.triggerAuthToast('Password successfully reset!', "success");
