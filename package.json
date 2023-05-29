@@ -41,6 +41,6 @@
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "^0.8.6",
 		"@supabase/supabase-js": "^2.2.2",
-		"zod": "^3.20.6"
+		"zod": "^3.21.4"
 	}
 }
