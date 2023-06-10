@@ -93,6 +93,27 @@
                 console.error('Form submission not recognized due to unrecognized authentication type: ', authType);
                 break;
         }
+        resetForm();
+    }
+
+    /**
+     * This function will reset the form on submit.
+     */
+    function resetForm(): void {
+        authForm.formData.name = '';
+        authForm.formData.email = '';
+        authForm.formData.password = '';
+        authForm.formData.passwordConfirmation = '';
+
+        // signIn form contains remember me checkbox 
+        if (authType === 'signIn') {
+            let rememberCheckBox = document.getElementById('remember') as HTMLInputElement;
+            if (rememberCheckBox) {
+                rememberCheckBox.checked = false;
+            }
+        }
+
+        authForm = authForm;
     }
 
     /**
@@ -141,7 +162,7 @@
     $: passwordFieldValid = !formActive ? false : authFeedback.passwordFeedback !== '' ? false : true;
     $: passwordConfirmationFieldValid = !formActive ? false : authFeedback.passwordConfirmationFeedback !== '' ? false : true;
     $: signUpFormComplete = nameFieldValid && emailFieldValid && passwordFieldValid && passwordConfirmationFieldValid;
-    $: signInFormComplete = emailFieldValid && passwordFieldValid;
+    $: signInFormComplete = emailFieldValid;
     $: passwordRecoveryFormComplete = emailFieldValid;
     $: passwordResetFormComplete = passwordFieldValid && passwordConfirmationFieldValid;
     $: formComplete = authType === 'signUp' && signUpFormComplete || authType === 'signIn' && signInFormComplete || authType === 'passwordRecovery' && passwordRecoveryFormComplete || authType === 'passwordReset' && passwordResetFormComplete;
@@ -155,34 +176,64 @@
             <div class="mb-6">
                 <label for="name" class={labelClasses}>Name</label>
                 <input bind:value={authForm.formData.name} type="text" id="name" class={inputClasses} required>
-                <InputFeedback active={formActive} feedback={authFeedback.nameFeedback || ''}></InputFeedback>
+                <InputFeedback 
+                field="name" 
+                formActive={formActive} 
+                feedback={authFeedback.nameFeedback || ''} 
+                lastActiveField={lastActiveField}>
+                </InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="email" class={labelClasses}>Email</label>
                 <input bind:value={authForm.formData.email} type="email" id="email" class={inputClasses} required>
-                <InputFeedback active={formActive} feedback={authFeedback.emailFeedback || ''}></InputFeedback>
+                <InputFeedback
+                field="email" 
+                formActive={formActive} 
+                feedback={authFeedback.emailFeedback || ''} 
+                lastActiveField={lastActiveField}>
+                </InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="password" class={labelClasses}>Please enter your password</label>
                 <input bind:value={authForm.formData.password} type="password" id="password" class={inputClasses} required>
-                <InputFeedback active={formActive} feedback={authFeedback.passwordFeedback || ''}></InputFeedback>
+                <InputFeedback
+                field="password" 
+                formActive={formActive} 
+                feedback={authFeedback.passwordFeedback || ''} 
+                lastActiveField={lastActiveField}>
+                </InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="confirm" class={labelClasses}>Please confirm your password</label>
                 <input bind:value={authForm.formData.passwordConfirmation} type="password" id="confirm" class={inputClasses} required>
-                <InputFeedback active={formActive} feedback={authFeedback.passwordConfirmationFeedback || ''}></InputFeedback>
+                <InputFeedback
+                field="passwordConfirmation"
+                formActive={formActive}
+                feedback={authFeedback.passwordConfirmationFeedback || ''}
+                lastActiveField={lastActiveField}>
+                </InputFeedback>
             </div>
         {/if}
         {#if authType === 'signIn'}
             <div class="mb-6">
                 <label for="email" class={labelClasses}>Please enter your email</label>
                 <input bind:value={authForm.formData.email} type="email" id="email" class={inputClasses} required>
-                <InputFeedback active={formActive} feedback={authFeedback.emailFeedback || ''}></InputFeedback>
+                <InputFeedback
+                field="email"
+                formActive={formActive}
+                feedback={authFeedback.emailFeedback || ''}
+                lastActiveField={lastActiveField}>
+                </InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="password" class={labelClasses}>Your password</label>
                 <input bind:value={authForm.formData.password} type="password" id="password" class={inputClasses} required>
-                <InputFeedback active={formActive} feedback={authFeedback.passwordFeedback || ''}></InputFeedback>
+                <!-- <InputFeedback
+                field="password"
+                formActive={formActive}
+                feedback={authFeedback.passwordFeedback || ''}
+                lastActiveField={lastActiveField}>
+                </InputFeedback> -->
             </div>
             <div class="flex items-start mb-6">
                 <div class="flex items-center h-5">
@@ -201,19 +252,34 @@
             <div class="mb-6">
                 <label for="email" class={labelClasses}>Please enter your email address, we'll use this to send you a recovery email.</label>
                 <input type="email" id="email" bind:value={authForm.formData.email} class={inputClasses} required>
-                <InputFeedback active={formActive} feedback={authFeedback.emailFeedback || ''}></InputFeedback>
+                <InputFeedback
+                field="email" 
+                formActive={formActive} 
+                feedback={authFeedback.emailFeedback || ''} 
+                lastActiveField={lastActiveField}>
+                </InputFeedback>
             </div>
         {/if}
         {#if authType === 'passwordReset'}
             <div class="mb-6">
                 <label for="password" class={labelClasses}>Please enter your new password</label>
                 <input bind:value={authForm.formData.password} type="password" id="password" class={inputClasses} required>
-                <InputFeedback active={formActive} feedback={authFeedback.passwordFeedback || ''}></InputFeedback>
+                <InputFeedback 
+                field="password" 
+                formActive={formActive} 
+                feedback={authFeedback.passwordFeedback || ''} 
+                lastActiveField={lastActiveField}>
+                </InputFeedback>
             </div>
             <div class="mb-6">
                 <label for="confirm" class={labelClasses}>Please confirm your new password</label>
                 <input bind:value={authForm.formData.passwordConfirmation} type="password" id="confirm" class={inputClasses} required>
-                <InputFeedback active={formActive} feedback={authFeedback.passwordConfirmationFeedback || ''}></InputFeedback>
+                <InputFeedback 
+                field="passwordConfirmation" 
+                formActive={formActive} 
+                feedback={authFeedback.passwordConfirmationFeedback || ''} 
+                lastActiveField={lastActiveField}>
+                </InputFeedback>
             </div>
         {/if}
         <button 
