@@ -15,6 +15,8 @@
     // this is also how we'll know if the form has been interacted with as this would be empty otherwise
     let lastActiveField: string = '';
 
+    let rememberMe: boolean = false;
+
     function checkPasswordsMatch():void {
         let password = authForm.formData.password;
         let passwordConfirmation = authForm.formData.passwordConfirmation;
@@ -81,7 +83,7 @@
                 AuthHelpers.signUp(authForm.formData.email || '', authForm.formData.password || '');
                 break;
             case 'signIn':
-                AuthHelpers.signIn(authForm.formData.email || '', authForm.formData.password || '');
+                AuthHelpers.signIn(authForm.formData.email || '', authForm.formData.password || '', rememberMe);
                 break;
             case 'passwordRecovery':
                 AuthHelpers.sendRecoveryEmail(authForm.formData.email || '');
@@ -134,7 +136,7 @@
      * This function is called when our code is being mounted onto the DOM and will set an input watcher for any fields
      * that are active based on our authType.
      */
-    function setAllInputWatchers() {
+    function setAllInputWatchers(): void {
         let nameInput = document.getElementById("name");
         let emailInput = document.getElementById("email");
         let passwordInput = document.getElementById("password");
@@ -150,8 +152,21 @@
     const labelClasses: string = 'block mb-2 text-sm font-medium dark:text-white';
     const inputClasses: string = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 dark:bg-surface-700 dark:border-stone-800 dark:placeholder-gray-400 dark:text-white dark:focus:ring-amber-500 dark:focus:border-amber-500';
 
+    // 
+    function checkRememberMe(): void {
+        const userEmail = localStorage.getItem('rememberMe');
+        if (userEmail) {
+            authForm.formData.email = userEmail;
+            AuthHelpers.triggerAuthToast(`Welcome back, ${userEmail}. Please enter your password to continue.`, 'tertiary');
+        }
+    }
+
     onMount(() => {
         setAllInputWatchers();
+
+        if (authType === 'signIn') {
+            checkRememberMe();
+        }
     });
 
     // these reactive variables will keep track of our state and will be updated in real time based on zod validation
@@ -239,13 +254,13 @@
                 <div class="flex items-center h-5">
                     <input 
                     id="remember" 
-                    type="checkbox" 
-                    value="" 
+                    type="checkbox"
+                    bind:checked={rememberMe} 
                     class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 
                     focus:ring-amber-300 dark:bg-gray-700 dark:border-gray-600
                     dark:focus:ring-amber-500 dark:ring-offset-amber-800 accent-amber-500">
                 </div>
-                <label for="remember" class="ml-2 text-sm font-medium">Remember me</label>
+                <label for="remember" class="ml-2 text-sm font-medium">Remember my email</label>
             </div>
         {/if}
         {#if authType === 'passwordRecovery'}

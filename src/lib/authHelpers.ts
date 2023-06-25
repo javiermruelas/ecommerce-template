@@ -118,13 +118,28 @@ export class AuthHelpers {
         }
         return authFeedback;
     }
+
+    /**
+     * Uses localStorage so that when a user returns to the site unsigned in, their email address will be pre-populated.
+     * @param {string} email 
+     */
+    public static rememberUserEmail(email:string): void {
+        localStorage.setItem('rememberMe', email);
+    }
+
+    /**
+     * Deletes possible entry from localStorage.
+     */
+    public static forgetUserEmail(): void {
+        localStorage.removeItem('rememberMe');
+    }
     
     /**
      * Uses the Supabase API to sign the user in.
      * @param {string} email
      * @param {string} password 
      */
-    public static async signIn(email: string, password:string): Promise<void> {
+    public static async signIn(email: string, password:string, rememberMe:boolean): Promise<void> {
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password
@@ -136,6 +151,13 @@ export class AuthHelpers {
         } else {
             console.log(data);
             this.triggerAuthToast('Sign in successful!', "success");
+
+            if (rememberMe) {
+                this.rememberUserEmail(email);
+            } else {
+                this.forgetUserEmail();
+            }
+
             goto('/');
         }
     }
