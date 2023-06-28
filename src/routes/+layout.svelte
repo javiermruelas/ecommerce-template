@@ -14,7 +14,9 @@
 	import ContactModal from "$lib/components/common/ContactModal.svelte";
 
 	// supabase dependencies
-	import { supabase } from '$lib/db';
+	export let data
+	let { supabase, session } = data
+	$: ({ supabase, session } = data)
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 
@@ -25,14 +27,14 @@
 	onMount(() => {
 		const {
 			data: { subscription },
-		} = supabase.auth.onAuthStateChange(() => {
-			invalidate('supabase:auth')
-		});
+		} = supabase.auth.onAuthStateChange((event, _session) => {
+			if (_session?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth')
+			}
+		})
 
-		return () => {
-			subscription.unsubscribe()
-		}
-	});
+    	return () => subscription.unsubscribe()
+  	});
 
 	/**
      * This function will trigger the Skeleton UI modal.

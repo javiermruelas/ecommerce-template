@@ -1,7 +1,6 @@
 import type { Auth, AuthForm, AuthFeedback, Toast } from "$types/auth";
 
 import { goto } from '$app/navigation';
-import { supabase } from "$lib/db";
 
 import { toastStore } from '@skeletonlabs/skeleton';
 import type { ToastSettings } from "@skeletonlabs/skeleton";
@@ -134,33 +133,33 @@ export class AuthHelpers {
         localStorage.removeItem('rememberMe');
     }
     
-    /**
-     * Uses the Supabase API to sign the user in.
-     * @param {string} email
-     * @param {string} password 
-     */
-    public static async signIn(email: string, password:string, rememberMe:boolean): Promise<void> {
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: password
-        });
+    // /**
+    //  * Uses the Supabase API to sign the user in.
+    //  * @param {string} email
+    //  * @param {string} password 
+    //  */
+    // public static async signIn(email: string, password:string, rememberMe:boolean): Promise<void> {
+    //     const { data, error } = await supabase.auth.signInWithPassword({
+    //         email: email,
+    //         password: password
+    //     });
     
-        if (error) {
-            console.error(error);
-            this.triggerAuthToast('Invalid credentials, please ensure you have the correct credentials.', "error");
-        } else {
-            console.log(data);
-            this.triggerAuthToast('Sign in successful!', "success");
+    //     if (error) {
+    //         console.error(error);
+    //         this.triggerAuthToast('Invalid credentials, please ensure you have the correct credentials.', "error");
+    //     } else {
+    //         console.log(data);
+    //         this.triggerAuthToast('Sign in successful!', "success");
 
-            if (rememberMe) {
-                this.rememberUserEmail(email);
-            } else {
-                this.forgetUserEmail();
-            }
+    //         if (rememberMe) {
+    //             this.rememberUserEmail(email);
+    //         } else {
+    //             this.forgetUserEmail();
+    //         }
 
-            goto('/');
-        }
-    }
+    //         goto('/');
+    //     }
+    // }
 
     /**
      * Uses the Supabase API call to sign the user out.

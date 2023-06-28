@@ -3,6 +3,11 @@
     import { AuthHelpers } from "$lib/authHelpers";
     import InputFeedback from "$lib/components/authentication/InputFeedback.svelte";
 	import { onMount } from "svelte";
+    import { goto } from '$app/navigation';
+
+    export let data
+	let { supabase, session } = data
+	$: ({ supabase, session } = data)
 
     // importing the auth type that the page needs (component prop)
     export let authType: Auth;
@@ -16,6 +21,34 @@
     let lastActiveField: string = '';
 
     let rememberMe: boolean = false;
+
+    /**
+     * Uses the Supabase API to sign the user in.
+     * @param {string} email
+     * @param {string} password 
+     */
+    const handleSignIn = async (email: string, password:string, rememberMe:boolean): Promise<void> => {
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+    
+        if (error) {
+            console.error(error);
+            AuthHelpers.triggerAuthToast('Invalid credentials, please ensure you have the correct credentials.', "error");
+        } else {
+            console.log(data);
+            AuthHelpers.triggerAuthToast('Sign in successful!', "success");
+
+            if (rememberMe) {
+                AuthHelpers.rememberUserEmail(email);
+            } else {
+                AuthHelpers.forgetUserEmail();
+            }
+
+            goto('/');
+        }
+    }
 
     function checkPasswordsMatch():void {
         let password = authForm.formData.password;
@@ -83,7 +116,7 @@
                 AuthHelpers.signUp(authForm.formData.email || '', authForm.formData.password || '');
                 break;
             case 'signIn':
-                AuthHelpers.signIn(authForm.formData.email || '', authForm.formData.password || '', rememberMe);
+                handleSignIn(authForm.formData.email || '', authForm.formData.password || '', rememberMe);
                 break;
             case 'passwordRecovery':
                 AuthHelpers.sendRecoveryEmail(authForm.formData.email || '');
